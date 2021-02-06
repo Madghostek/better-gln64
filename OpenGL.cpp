@@ -15,52 +15,6 @@
 
 GLInfo OGL;
 
-// NV_register_combiners functions
-PFNGLCOMBINERPARAMETERFVNVPROC glCombinerParameterfvNV;
-PFNGLCOMBINERPARAMETERFNVPROC glCombinerParameterfNV;
-PFNGLCOMBINERPARAMETERIVNVPROC glCombinerParameterivNV;
-PFNGLCOMBINERPARAMETERINVPROC glCombinerParameteriNV;
-PFNGLCOMBINERINPUTNVPROC glCombinerInputNV;
-PFNGLCOMBINEROUTPUTNVPROC glCombinerOutputNV;
-PFNGLFINALCOMBINERINPUTNVPROC glFinalCombinerInputNV;
-PFNGLGETCOMBINERINPUTPARAMETERFVNVPROC glGetCombinerInputParameterfvNV;
-PFNGLGETCOMBINERINPUTPARAMETERIVNVPROC glGetCombinerInputParameterivNV;
-PFNGLGETCOMBINEROUTPUTPARAMETERFVNVPROC glGetCombinerOutputParameterfvNV;
-PFNGLGETCOMBINEROUTPUTPARAMETERIVNVPROC glGetCombinerOutputParameterivNV;
-PFNGLGETFINALCOMBINERINPUTPARAMETERFVNVPROC glGetFinalCombinerInputParameterfvNV;
-PFNGLGETFINALCOMBINERINPUTPARAMETERIVNVPROC glGetFinalCombinerInputParameterivNV;
-
-// ARB_multitexture functions
-PFNGLACTIVETEXTUREARBPROC glActiveTextureARB;
-PFNGLCLIENTACTIVETEXTUREARBPROC glClientActiveTextureARB;
-PFNGLMULTITEXCOORD2FARBPROC glMultiTexCoord2fARB;
-
-// EXT_fog_coord functions
-PFNGLFOGCOORDFEXTPROC glFogCoordfEXT;
-PFNGLFOGCOORDFVEXTPROC glFogCoordfvEXT;
-PFNGLFOGCOORDDEXTPROC glFogCoorddEXT;
-PFNGLFOGCOORDDVEXTPROC glFogCoorddvEXT;
-PFNGLFOGCOORDPOINTEREXTPROC glFogCoordPointerEXT;
-
-// EXT_secondary_color functions
-PFNGLSECONDARYCOLOR3BEXTPROC glSecondaryColor3bEXT;
-PFNGLSECONDARYCOLOR3BVEXTPROC glSecondaryColor3bvEXT;
-PFNGLSECONDARYCOLOR3DEXTPROC glSecondaryColor3dEXT;
-PFNGLSECONDARYCOLOR3DVEXTPROC glSecondaryColor3dvEXT;
-PFNGLSECONDARYCOLOR3FEXTPROC glSecondaryColor3fEXT;
-PFNGLSECONDARYCOLOR3FVEXTPROC glSecondaryColor3fvEXT;
-PFNGLSECONDARYCOLOR3IEXTPROC glSecondaryColor3iEXT;
-PFNGLSECONDARYCOLOR3IVEXTPROC glSecondaryColor3ivEXT;
-PFNGLSECONDARYCOLOR3SEXTPROC glSecondaryColor3sEXT;
-PFNGLSECONDARYCOLOR3SVEXTPROC glSecondaryColor3svEXT;
-PFNGLSECONDARYCOLOR3UBEXTPROC glSecondaryColor3ubEXT;
-PFNGLSECONDARYCOLOR3UBVEXTPROC glSecondaryColor3ubvEXT;
-PFNGLSECONDARYCOLOR3UIEXTPROC glSecondaryColor3uiEXT;
-PFNGLSECONDARYCOLOR3UIVEXTPROC glSecondaryColor3uivEXT;
-PFNGLSECONDARYCOLOR3USEXTPROC glSecondaryColor3usEXT;
-PFNGLSECONDARYCOLOR3USVEXTPROC glSecondaryColor3usvEXT;
-PFNGLSECONDARYCOLORPOINTEREXTPROC glSecondaryColorPointerEXT;
-
 void *gCapturedPixels; //pointer to buffer to fill
 
 void OGL_ReadPixels()
@@ -74,36 +28,6 @@ void OGL_ReadPixels()
 		GL_BGR, GL_UNSIGNED_BYTE, gCapturedPixels);
 	if (GLenum err = glGetError()) printf("%s\n", gluErrorString(err));
 	glReadBuffer(oldMode); //restore old read buffer
-}
-
-BOOL isExtensionSupported( const char *extension )
-{
-	const GLubyte *extensions = NULL;
-	const GLubyte *start;
-	GLubyte *where, *terminator;
-
-	where = (GLubyte *) strchr(extension, ' ');
-	if (where || *extension == '\0')
-		return 0;
-
-	extensions = glGetString(GL_EXTENSIONS);
-
-	start = extensions;
-	for (;;)
-	{
-		where = (GLubyte *) strstr((const char *) start, extension);
-		if (!where)
-			break;
-
-		terminator = where + strlen(extension);
-		if (where == start || *(where - 1) == ' ')
-			if (*terminator == ' ' || *terminator == '\0')
-				return TRUE;
-
-		start = terminator;
-	}
-
-	return FALSE;
 }
 
 void GLAPIENTRY GLErrorHandler(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
@@ -123,70 +47,20 @@ void OGL_InitExtensions()
 		return;
 	}
 	if (GL_KHR_debug) glDebugMessageCallback(GLErrorHandler, 0);
-	if (OGL.NV_register_combiners = isExtensionSupported( "GL_NV_register_combiners" ))
-	{
-		glCombinerParameterfvNV = (PFNGLCOMBINERPARAMETERFVNVPROC)wglGetProcAddress( "glCombinerParameterfvNV" );
-		glCombinerParameterfNV = (PFNGLCOMBINERPARAMETERFNVPROC)wglGetProcAddress( "glCombinerParameterfNV" );
-		glCombinerParameterivNV = (PFNGLCOMBINERPARAMETERIVNVPROC)wglGetProcAddress( "glCombinerParameterivNV" );
-		glCombinerParameteriNV = (PFNGLCOMBINERPARAMETERINVPROC)wglGetProcAddress( "glCombinerParameteriNV" );
-		glCombinerInputNV = (PFNGLCOMBINERINPUTNVPROC)wglGetProcAddress( "glCombinerInputNV" );
-		glCombinerOutputNV = (PFNGLCOMBINEROUTPUTNVPROC)wglGetProcAddress( "glCombinerOutputNV" );
-		glFinalCombinerInputNV = (PFNGLFINALCOMBINERINPUTNVPROC)wglGetProcAddress( "glFinalCombinerInputNV" );
-		glGetCombinerInputParameterfvNV = (PFNGLGETCOMBINERINPUTPARAMETERFVNVPROC)wglGetProcAddress( "glGetCombinerInputParameterfvNV" );
-		glGetCombinerInputParameterivNV = (PFNGLGETCOMBINERINPUTPARAMETERIVNVPROC)wglGetProcAddress( "glGetCombinerInputParameterivNV" );
-		glGetCombinerOutputParameterfvNV = (PFNGLGETCOMBINEROUTPUTPARAMETERFVNVPROC)wglGetProcAddress( "glGetCombinerOutputParameterfvNV" );
-		glGetCombinerOutputParameterivNV = (PFNGLGETCOMBINEROUTPUTPARAMETERIVNVPROC)wglGetProcAddress( "glGetCombinerOutputParameterivNV" );
-		glGetFinalCombinerInputParameterfvNV = (PFNGLGETFINALCOMBINERINPUTPARAMETERFVNVPROC)wglGetProcAddress( "glGetFinalCombinerInputParameterfvNV" );
-		glGetFinalCombinerInputParameterivNV = (PFNGLGETFINALCOMBINERINPUTPARAMETERIVNVPROC)wglGetProcAddress( "glGetFinalCombinerInputParameterivNV" );
-		glGetIntegerv( GL_MAX_GENERAL_COMBINERS_NV, &OGL.maxGeneralCombiners );
-	}
+	OGL.NV_register_combiners = GLEW_NV_register_combiners;
 
-	if (OGL.ARB_multitexture = isExtensionSupported( "GL_ARB_multitexture" ))
-	{
-		glActiveTextureARB			= (PFNGLACTIVETEXTUREARBPROC)wglGetProcAddress( "glActiveTextureARB" );
-		glClientActiveTextureARB	= (PFNGLCLIENTACTIVETEXTUREARBPROC)wglGetProcAddress( "glClientActiveTextureARB" );
-		glMultiTexCoord2fARB		= (PFNGLMULTITEXCOORD2FARBPROC)wglGetProcAddress( "glMultiTexCoord2fARB" );
+	OGL.ARB_multitexture = GLEW_ARB_multitexture;
+	glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB, &OGL.maxTextureUnits);
+	OGL.maxTextureUnits = min(8, OGL.maxTextureUnits); // The plugin only supports 8, and 4 is really enough
 
-		glGetIntegerv( GL_MAX_TEXTURE_UNITS_ARB, &OGL.maxTextureUnits );
-		OGL.maxTextureUnits = min( 8, OGL.maxTextureUnits ); // The plugin only supports 8, and 4 is really enough
-	}
-
-	if (OGL.EXT_fog_coord = isExtensionSupported( "GL_EXT_fog_coord" ))
-	{
-		glFogCoordfEXT = (PFNGLFOGCOORDFEXTPROC)wglGetProcAddress( "glFogCoordfEXT" );
-		glFogCoordfvEXT = (PFNGLFOGCOORDFVEXTPROC)wglGetProcAddress( "glFogCoordfvEXT" );
-		glFogCoorddEXT = (PFNGLFOGCOORDDEXTPROC)wglGetProcAddress( "glFogCoorddEXT" );
-		glFogCoorddvEXT = (PFNGLFOGCOORDDVEXTPROC)wglGetProcAddress( "glFogCoorddvEXT" );
-		glFogCoordPointerEXT = (PFNGLFOGCOORDPOINTEREXTPROC)wglGetProcAddress( "glFogCoordPointerEXT" );
-	}
-
-	if (OGL.EXT_secondary_color = isExtensionSupported( "GL_EXT_secondary_color" ))
-	{
-		glSecondaryColor3bEXT = (PFNGLSECONDARYCOLOR3BEXTPROC)wglGetProcAddress( "glSecondaryColor3bEXT" );
-		glSecondaryColor3bvEXT = (PFNGLSECONDARYCOLOR3BVEXTPROC)wglGetProcAddress( "glSecondaryColor3bvEXT" );
-		glSecondaryColor3dEXT = (PFNGLSECONDARYCOLOR3DEXTPROC)wglGetProcAddress( "glSecondaryColor3dEXT" );
-		glSecondaryColor3dvEXT = (PFNGLSECONDARYCOLOR3DVEXTPROC)wglGetProcAddress( "glSecondaryColor3dvEXT" );
-		glSecondaryColor3fEXT = (PFNGLSECONDARYCOLOR3FEXTPROC)wglGetProcAddress( "glSecondaryColor3fEXT" );
-		glSecondaryColor3fvEXT = (PFNGLSECONDARYCOLOR3FVEXTPROC)wglGetProcAddress( "glSecondaryColor3fvEXT" );
-		glSecondaryColor3iEXT = (PFNGLSECONDARYCOLOR3IEXTPROC)wglGetProcAddress( "glSecondaryColor3iEXT" );
-		glSecondaryColor3ivEXT = (PFNGLSECONDARYCOLOR3IVEXTPROC)wglGetProcAddress( "glSecondaryColor3ivEXT" );
-		glSecondaryColor3sEXT = (PFNGLSECONDARYCOLOR3SEXTPROC)wglGetProcAddress( "glSecondaryColor3sEXT" );
-		glSecondaryColor3svEXT = (PFNGLSECONDARYCOLOR3SVEXTPROC)wglGetProcAddress( "glSecondaryColor3svEXT" );
-		glSecondaryColor3ubEXT = (PFNGLSECONDARYCOLOR3UBEXTPROC)wglGetProcAddress( "glSecondaryColor3ubEXT" );
-		glSecondaryColor3ubvEXT = (PFNGLSECONDARYCOLOR3UBVEXTPROC)wglGetProcAddress( "glSecondaryColor3ubvEXT" );
-		glSecondaryColor3uiEXT = (PFNGLSECONDARYCOLOR3UIEXTPROC)wglGetProcAddress( "glSecondaryColor3uiEXT" );
-		glSecondaryColor3uivEXT = (PFNGLSECONDARYCOLOR3UIVEXTPROC)wglGetProcAddress( "glSecondaryColor3uivEXT" );
-		glSecondaryColor3usEXT = (PFNGLSECONDARYCOLOR3USEXTPROC)wglGetProcAddress( "glSecondaryColor3usEXT" );
-		glSecondaryColor3usvEXT = (PFNGLSECONDARYCOLOR3USVEXTPROC)wglGetProcAddress( "glSecondaryColor3usvEXT" );
-		glSecondaryColorPointerEXT = (PFNGLSECONDARYCOLORPOINTEREXTPROC)wglGetProcAddress( "glSecondaryColorPointerEXT" );
-	}
-
-	OGL.ARB_texture_env_combine = isExtensionSupported( "GL_ARB_texture_env_combine" );
-	OGL.ARB_texture_env_crossbar = isExtensionSupported( "GL_ARB_texture_env_crossbar" );
-	OGL.EXT_texture_env_combine = isExtensionSupported( "GL_EXT_texture_env_combine" );
-	OGL.ATI_texture_env_combine3 = isExtensionSupported( "GL_ATI_texture_env_combine3" );
-	OGL.ATIX_texture_env_route = isExtensionSupported( "GL_ATIX_texture_env_route" );
-	OGL.NV_texture_env_combine4 = isExtensionSupported( "GL_NV_texture_env_combine4" );;
+	OGL.EXT_fog_coord = GLEW_EXT_fog_coord;
+	OGL.EXT_secondary_color = GLEW_EXT_secondary_color;
+	OGL.ARB_texture_env_combine = GLEW_ARB_texture_env_combine;
+	OGL.ARB_texture_env_crossbar = GLEW_ARB_texture_env_crossbar;
+	OGL.EXT_texture_env_combine = GLEW_EXT_texture_env_combine;
+	OGL.ATI_texture_env_combine3 = GLEW_ATI_texture_env_combine3;
+	OGL.ATIX_texture_env_route = GLEW_ATIX_texture_env_route;
+	OGL.NV_texture_env_combine4 = GLEW_NV_texture_env_combine4;
 }
 
 void OGL_InitStates()
