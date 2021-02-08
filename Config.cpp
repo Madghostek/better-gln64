@@ -37,7 +37,7 @@ struct
 {
 	WORD width, height;
 	char *description;
-} windowedModes[12] = {
+} windowedModes[numWindowedModes] = {
 	{ 320, 240, "320 x 240" },
 	{ 400, 300, "400 x 300" },
 	{ 480, 360, "480 x 360" },
@@ -171,8 +171,19 @@ void Config_ApplyDlgConfig( HWND hWndDlg )
 	OGL.textureBitDepth = i;
 
 	i = SendDlgItemMessage( hWndDlg, IDC_WINDOWEDRES, CB_GETCURSEL, 0, 0 );
-	OGL.windowedWidth = windowedModes[i].width;
-	OGL.windowedHeight = windowedModes[i].height;
+	if (i == SendMessage(GetDlgItem(hWndDlg, IDC_WINDOWEDRES), CB_GETCOUNT, 0, 0) - 1)
+	{
+		char val[32];
+		SendMessage(GetDlgItem(hWndDlg,IDC_WINDOWED_X), WM_GETTEXT, 32, (LPARAM)val);
+		OGL.windowedWidth = atoi(val);
+		SendMessage(GetDlgItem(hWndDlg, IDC_WINDOWED_Y), WM_GETTEXT, 32, (LPARAM)val);
+		OGL.windowedHeight = atoi(val);
+	}
+	else
+	{
+		OGL.windowedWidth = windowedModes[i].width;
+		OGL.windowedHeight = windowedModes[i].height;
+	}
 
 	OGL.frameBufferTextures = (SendDlgItemMessage( hWndDlg, IDC_FRAMEBUFFER, BM_GETCHECK, NULL, NULL ) == BST_CHECKED);
 	OGL.usePolygonStipple = (SendDlgItemMessage( hWndDlg, IDC_DITHEREDALPHATEST, BM_GETCHECK, NULL, NULL ) == BST_CHECKED);
@@ -316,6 +327,8 @@ BOOL CALLBACK ConfigDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
 						SendDlgItemMessage( hWndDlg, IDC_WINDOWEDRES, CB_SETCURSEL, i, 0 );
 				}
 			}
+			SendDlgItemMessage(hWndDlg, IDC_WINDOWEDRES, CB_ADDSTRING, 0, (LPARAM)"Custom...");
+
 			SendDlgItemMessage( hWndDlg, IDC_ENABLE2XSAI, BM_SETCHECK, OGL.enable2xSaI ? (LPARAM)BST_CHECKED : (LPARAM)BST_UNCHECKED, NULL );
 			// Set forced bilinear check box
 			SendDlgItemMessage( hWndDlg, IDC_FORCEBILINEAR, BM_SETCHECK, OGL.forceBilinear ? (LPARAM)BST_CHECKED : (LPARAM)BST_UNCHECKED, NULL );
@@ -374,6 +387,21 @@ BOOL CALLBACK ConfigDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
 						UpdateFullscreenConfig( hWndDlg );
 					}
 					break;
+
+				case IDC_WINDOWEDRES:
+					if (HIWORD(wParam) == CBN_SELCHANGE)
+					{
+						if (SendMessage(GetDlgItem(hWndDlg, IDC_WINDOWEDRES), CB_GETCURSEL, 0, 0) == SendMessage(GetDlgItem(hWndDlg, IDC_WINDOWEDRES), CB_GETCOUNT, 0, 0)-1)
+						{
+							EnableWindow(GetDlgItem(hWndDlg, IDC_WINDOWED_X), TRUE );
+							EnableWindow(GetDlgItem(hWndDlg, IDC_WINDOWED_Y), TRUE );
+						}
+						else
+						{
+							EnableWindow(GetDlgItem(hWndDlg, IDC_WINDOWED_X), FALSE);
+							EnableWindow(GetDlgItem(hWndDlg, IDC_WINDOWED_Y), FALSE);
+						}
+					}
 			} 
     } 
     return FALSE; 

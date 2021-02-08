@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ generated include file.
-// Used by Resource.rc
+// Plik do³¹czany wygenerowany przez œrodowisko Microsoft Visual C++.
+// U¿ywany przez: Resource.rc
 //
 #define IDD_DEBUGDLG                    101
 #define IDD_CONFIGDLG                   102
@@ -59,14 +59,17 @@
 #define IDC_TEXTBOX                     1097
 #define IDC_CHECK2                      1098
 #define IDC_DITHEREDALPHATEST           1098
+#define IDC_WINDOWED_X                  1099
+#define IDC_WINDOWED_Y                  1100
+#define IDC_STATIC                      1234
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        108
+#define _APS_NEXT_RESOURCE_VALUE        109
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1099
+#define _APS_NEXT_CONTROL_VALUE         1100
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

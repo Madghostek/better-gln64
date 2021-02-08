@@ -230,7 +230,7 @@ void RSP_Init()
 	__try
 	{
 
-		testAddress = 0;
+		testAddress = 0x400000; //at least 4mb I guess?
 		while (TRUE)
 		{
 			test = RDRAM[testAddress];
