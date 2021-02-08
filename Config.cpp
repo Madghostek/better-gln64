@@ -297,10 +297,17 @@ void UpdateFullscreenConfig( HWND hWndDlg )
 		SendDlgItemMessage( hWndDlg, IDC_FULLSCREENREFRESH, CB_SETCURSEL, SendDlgItemMessage( hWndDlg, IDC_FULLSCREENREFRESH, CB_GETCOUNT, 0, 0 ) - 1, 0 );
 }
 
+void EnableCustom(HWND hWndDlg, BOOL enable)
+{
+	EnableWindow(GetDlgItem(hWndDlg, IDC_WINDOWED_X), enable);
+	EnableWindow(GetDlgItem(hWndDlg, IDC_WINDOWED_Y), enable);
+}
+
 BOOL CALLBACK ConfigDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM lParam ) 
 { 
 	char text[256];
 	int	 i;
+	bool custom = true;
 	DEVMODE deviceMode;
 	switch (message) 
     { 
@@ -323,11 +330,26 @@ BOOL CALLBACK ConfigDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
 				{
 					SendDlgItemMessage( hWndDlg, IDC_WINDOWEDRES, CB_ADDSTRING, 0, (LPARAM)windowedModes[i].description );
 					if ((OGL.windowedWidth == windowedModes[i].width) &&
-					    (OGL.windowedHeight == windowedModes[i].height))
-						SendDlgItemMessage( hWndDlg, IDC_WINDOWEDRES, CB_SETCURSEL, i, 0 );
+						(OGL.windowedHeight == windowedModes[i].height))
+					{
+						SendDlgItemMessage(hWndDlg, IDC_WINDOWEDRES, CB_SETCURSEL, i, 0);
+						custom = false;
+					}
 				}
 			}
 			SendDlgItemMessage(hWndDlg, IDC_WINDOWEDRES, CB_ADDSTRING, 0, (LPARAM)"Custom...");
+
+			char val[32];
+			sprintf(val,"%d", OGL.windowedWidth);
+			SendDlgItemMessage(hWndDlg, IDC_WINDOWED_X, WM_SETTEXT, 0, (LPARAM)val);
+			sprintf(val, "%d", OGL.windowedHeight);
+			SendDlgItemMessage(hWndDlg, IDC_WINDOWED_Y, WM_SETTEXT, 0, (LPARAM)val);
+			if (custom)
+			{
+				int num = SendDlgItemMessage(hWndDlg, IDC_WINDOWEDRES, CB_GETCOUNT, 0, 0)-1;
+				EnableCustom(hWndDlg, TRUE);
+				SendDlgItemMessage(hWndDlg, IDC_WINDOWEDRES, CB_SETCURSEL, num, 0);
+			}
 
 			SendDlgItemMessage( hWndDlg, IDC_ENABLE2XSAI, BM_SETCHECK, OGL.enable2xSaI ? (LPARAM)BST_CHECKED : (LPARAM)BST_UNCHECKED, NULL );
 			// Set forced bilinear check box
@@ -391,15 +413,13 @@ BOOL CALLBACK ConfigDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
 				case IDC_WINDOWEDRES:
 					if (HIWORD(wParam) == CBN_SELCHANGE)
 					{
-						if (SendMessage(GetDlgItem(hWndDlg, IDC_WINDOWEDRES), CB_GETCURSEL, 0, 0) == SendMessage(GetDlgItem(hWndDlg, IDC_WINDOWEDRES), CB_GETCOUNT, 0, 0)-1)
+						if (SendDlgItemMessage(hWndDlg, IDC_WINDOWEDRES, CB_GETCURSEL, 0, 0) == SendDlgItemMessage(hWndDlg, IDC_WINDOWEDRES, CB_GETCOUNT, 0, 0)-1)
 						{
-							EnableWindow(GetDlgItem(hWndDlg, IDC_WINDOWED_X), TRUE );
-							EnableWindow(GetDlgItem(hWndDlg, IDC_WINDOWED_Y), TRUE );
+							EnableCustom(hWndDlg, TRUE);
 						}
 						else
 						{
-							EnableWindow(GetDlgItem(hWndDlg, IDC_WINDOWED_X), FALSE);
-							EnableWindow(GetDlgItem(hWndDlg, IDC_WINDOWED_Y), FALSE);
+							EnableCustom(hWndDlg, FALSE);
 						}
 					}
 			} 
