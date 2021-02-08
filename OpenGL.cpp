@@ -24,7 +24,7 @@ void OGL_ReadPixels()
 	//glReadBuffer(GL_FRONT);
 
 	glReadBuffer(GL_BACK);
-	glReadPixels(0, 0, OGL.width, OGL.height,
+	glReadPixels(0, OGL.heightOffset, OGL.width, OGL.height,
 		GL_BGR, GL_UNSIGNED_BYTE, gCapturedPixels);
 	if (GLenum err = glGetError()) printf("%s\n", gluErrorString(err));
 	glReadBuffer(oldMode); //restore old read buffer
