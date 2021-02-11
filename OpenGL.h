@@ -71,6 +71,8 @@ struct GLInfo
 	BYTE	lastStipple;
 
 	BYTE	combiner;
+
+	BOOL ignoreScissor;
 };
 
 extern GLInfo OGL;

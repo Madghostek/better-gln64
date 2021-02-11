@@ -792,8 +792,9 @@ void gDPFillRectangle( s32 ulx, s32 uly, s32 lrx, s32 lry )
 			return;
 		}
 	}
-
-	OGL_DrawRect( ulx, uly, lrx, lry, (gDP.otherMode.cycleType == G_CYC_FILL) ? &gDP.fillColor.r : &gDP.blendColor.r );
+	//clear once per frame
+	if (!OGL.ignoreScissor || !gDP.colorImage.changed)
+		OGL_DrawRect( ulx, uly, lrx, lry, (gDP.otherMode.cycleType == G_CYC_FILL) ? &gDP.fillColor.r : &gDP.blendColor.r );
 
 	if (depthBuffer.current) depthBuffer.current->cleared = FALSE;
 	gDP.colorImage.changed = TRUE;
