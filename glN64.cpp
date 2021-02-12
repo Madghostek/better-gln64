@@ -362,7 +362,8 @@ EXPORT void CALL ViWidthChanged (void)
 {
 }
 
-EXPORT void CALL ReadScreen(void** dest, long* width, long* height)
+//not to confuse with readscreen2 from mupen64plus specs (I think)
+EXPORT void CALL ReadScreen2(void** dest, long* width, long* height)
 {
 	extern void *gCapturedPixels;
 	*width = OGL.width;
