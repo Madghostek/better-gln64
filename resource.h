@@ -62,6 +62,7 @@
 #define IDC_WINDOWED_X                  1099
 #define IDC_WINDOWED_Y                  1100
 #define IDC_SCISSOR						1101
+#define IDC_FSCALE						1102
 #define IDC_STATIC                      1234
 
 // Next default values for new objects

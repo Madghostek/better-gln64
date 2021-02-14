@@ -520,7 +520,7 @@ void TextureCache_LoadBackground( CachedTexture *texInfo )
 
 	if (cache.textureFilter)
 	{
-		if (cache.textureFilter == 1) OGL.filterScale = 2;
+		if (cache.textureFilter == SaI) OGL.filterScale = 2;
 		texInfo->textureBytes *= OGL.filterScale * OGL.filterScale;
 
 		scaledDest = (u32*)malloc(texInfo->textureBytes);
@@ -666,7 +666,7 @@ void TextureCache_Load( CachedTexture *texInfo )
 
 	if (cache.textureFilter)
 	{
-		if (cache.textureFilter == 1) OGL.filterScale = 2;
+		if (cache.textureFilter == SaI) OGL.filterScale = 2;
 		texInfo->textureBytes *= OGL.filterScale* OGL.filterScale;
 
 		scaledDest = (u32*)malloc( texInfo->textureBytes );

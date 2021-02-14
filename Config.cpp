@@ -64,10 +64,13 @@ void LockTextureBits(HWND hWndDlg, BOOL lock)
 	{
 		SendMessage(GetDlgItem(hWndDlg, IDC_TEXTUREBPP), CB_SETCURSEL, 2, 0);
 		EnableWindow(GetDlgItem(hWndDlg, IDC_TEXTUREBPP), FALSE);
+		EnableWindow(GetDlgItem(hWndDlg, IDC_FSCALE), TRUE);
 	}
 	else
 	{
 		EnableWindow(GetDlgItem(hWndDlg, IDC_TEXTUREBPP), TRUE);
+		SendMessage(GetDlgItem(hWndDlg, IDC_TEXTUREBPP), TBM_SETPOS, TRUE, 2);
+		EnableWindow(GetDlgItem(hWndDlg, IDC_FSCALE), FALSE);
 	}
 }
 
@@ -93,9 +96,10 @@ void Config_LoadConfig()
 
 		RegQueryValueEx( hKey, "Texture Filter", 0, NULL, (BYTE*)&value, &size );
 		OGL.textureFilter = value;
-		if (OGL.textureFilter == 1) OGL.filterScale = 2;
-		else if (OGL.textureFilter == 2)
-			OGL.filterScale = 4; //hardcoded atm
+
+		RegQueryValueEx(hKey, "Filter Scale", 0, NULL, (BYTE*)&value, &size);
+		OGL.filterScale = value;
+		if (OGL.textureFilter == SaI) OGL.filterScale = 2; //in case something happens
 
 		RegQueryValueEx( hKey, "Enable Fog", 0, NULL, (BYTE*)&value, &size );
 		OGL.fog = value ? TRUE : FALSE;
@@ -155,6 +159,9 @@ void Config_SaveConfig()
 	value = OGL.textureFilter;
 	RegSetValueEx( hKey, "Texture Filter", 0, REG_DWORD, (BYTE*)&value, 4 );
 
+	value = OGL.filterScale;
+	RegSetValueEx(hKey, "Filter Scale", 0, REG_DWORD, (BYTE*)&value, 4);
+
 	value = OGL.fog ? 1 : 0;
 	RegSetValueEx( hKey, "Enable Fog", 0, REG_DWORD, (BYTE*)&value, 4 );
 
@@ -188,6 +195,9 @@ void Config_ApplyDlgConfig( HWND hWndDlg )
 	int temp = OGL.textureFilter;
 	OGL.textureFilter = SendDlgItemMessage( hWndDlg, IDC_TEXTUREFILTER, CB_GETCURSEL, NULL, NULL );
 	if (temp != OGL.textureFilter) OGL.filterChanged = TRUE;
+	temp = OGL.filterScale;
+	OGL.filterScale = SendDlgItemMessage(hWndDlg, IDC_FSCALE,TBM_GETPOS, NULL, NULL);
+	if (temp != OGL.filterScale) OGL.filterChanged = TRUE;
 	OGL.fog = (SendDlgItemMessage( hWndDlg, IDC_FOG, BM_GETCHECK, NULL, NULL ) == BST_CHECKED);
 	OGL.originAdjust = (OGL.textureFilter==1 ? 0.25 : 0.50);
 	OGL.ignoreScissor = (SendDlgItemMessage(hWndDlg, IDC_SCISSOR, BM_GETCHECK, NULL, NULL) == BST_CHECKED);
@@ -380,8 +390,9 @@ BOOL CALLBACK ConfigDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
 			SendDlgItemMessage(hWndDlg, IDC_TEXTUREFILTER, CB_ADDSTRING, 0, (LPARAM)"2xSaI");
 			SendDlgItemMessage(hWndDlg, IDC_TEXTUREFILTER, CB_ADDSTRING, 0, (LPARAM)"xBRZ");
 			SendDlgItemMessage(hWndDlg, IDC_TEXTUREFILTER, CB_SETCURSEL, OGL.textureFilter, 0);
+			SendMessage(GetDlgItem(hWndDlg, IDC_FSCALE), TBM_SETRANGE, TRUE, MAKELONG(2,6));
+			SendMessage(GetDlgItem(hWndDlg, IDC_FSCALE), TBM_SETPOS, TRUE, OGL.filterScale);
 			if(OGL.textureFilter == xBRZ) LockTextureBits(hConfigDlg, TRUE);
-
 			//SendDlgItemMessage( hWndDlg, IDC_ENABLE2XSAI, BM_SETCHECK, OGL.enable2xSaI ? (LPARAM)BST_CHECKED : (LPARAM)BST_UNCHECKED, NULL );
 			// Set forced bilinear check box
 			SendDlgItemMessage( hWndDlg, IDC_FORCEBILINEAR, BM_SETCHECK, OGL.forceBilinear ? (LPARAM)BST_CHECKED : (LPARAM)BST_UNCHECKED, NULL );
