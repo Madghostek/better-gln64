@@ -72,8 +72,10 @@ void Config_LoadConfig()
 		RegQueryValueEx( hKey, "Force Bilinear", 0, NULL, (BYTE*)&value, &size );
 		OGL.forceBilinear = value ? TRUE : FALSE;
 
-		RegQueryValueEx( hKey, "Enable 2xSaI", 0, NULL, (BYTE*)&value, &size );
-		OGL.enable2xSaI = value ? TRUE : FALSE;
+		RegQueryValueEx( hKey, "Texture Filter", 0, NULL, (BYTE*)&value, &size );
+		OGL.textureFilter = value;
+		if (OGL.textureFilter == 1) OGL.filterScale = 2;
+		else if (OGL.textureFilter == 2) OGL.filterScale = 4; //hardcoded atm
 
 		RegQueryValueEx( hKey, "Enable Fog", 0, NULL, (BYTE*)&value, &size );
 		OGL.fog = value ? TRUE : FALSE;
@@ -107,7 +109,7 @@ void Config_LoadConfig()
 		OGL.forceBilinear = FALSE;
 		cache.maxBytes = 32 * 1048576;
 		OGL.frameBufferTextures = FALSE;
-		OGL.enable2xSaI = FALSE;
+		OGL.textureFilter = 0;
 		OGL.textureBitDepth = 1;
 		OGL.usePolygonStipple = FALSE;
 	}
@@ -130,8 +132,8 @@ void Config_SaveConfig()
 	value = OGL.forceBilinear ? 1 : 0;
 	RegSetValueEx( hKey, "Force Bilinear", 0, REG_DWORD, (BYTE*)&value, 4 );
 
-	value = OGL.enable2xSaI ? 1 : 0;
-	RegSetValueEx( hKey, "Enable 2xSaI", 0, REG_DWORD, (BYTE*)&value, 4 );
+	value = OGL.textureFilter;
+	RegSetValueEx( hKey, "Texture Filter", 0, REG_DWORD, (BYTE*)&value, 4 );
 
 	value = OGL.fog ? 1 : 0;
 	RegSetValueEx( hKey, "Enable Fog", 0, REG_DWORD, (BYTE*)&value, 4 );
@@ -163,9 +165,11 @@ void Config_ApplyDlgConfig( HWND hWndDlg )
 	cache.maxBytes = atol( text ) * 1048576;
 
 	OGL.forceBilinear = (SendDlgItemMessage( hWndDlg, IDC_FORCEBILINEAR, BM_GETCHECK, NULL, NULL ) == BST_CHECKED);
-	OGL.enable2xSaI = (SendDlgItemMessage( hWndDlg, IDC_ENABLE2XSAI, BM_GETCHECK, NULL, NULL ) == BST_CHECKED);
+	int temp = OGL.textureFilter;
+	OGL.textureFilter = SendDlgItemMessage( hWndDlg, IDC_TEXTUREFILTER, CB_GETCURSEL, NULL, NULL );
+	if (temp != OGL.textureFilter) OGL.filterChanged = TRUE;
 	OGL.fog = (SendDlgItemMessage( hWndDlg, IDC_FOG, BM_GETCHECK, NULL, NULL ) == BST_CHECKED);
-	OGL.originAdjust = (OGL.enable2xSaI ? 0.25 : 0.50);
+	OGL.originAdjust = (OGL.textureFilter==1 ? 0.25 : 0.50);
 	OGL.ignoreScissor = (SendDlgItemMessage(hWndDlg, IDC_SCISSOR, BM_GETCHECK, NULL, NULL) == BST_CHECKED);
 
 	OGL.fullscreenBits = fullscreen.bitDepth[SendDlgItemMessage( hWndDlg, IDC_FULLSCREENBITDEPTH, CB_GETCURSEL, 0, 0 )];
@@ -358,7 +362,12 @@ BOOL CALLBACK ConfigDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
 				SendDlgItemMessage(hWndDlg, IDC_WINDOWEDRES, CB_SETCURSEL, num, 0);
 			}
 
-			SendDlgItemMessage( hWndDlg, IDC_ENABLE2XSAI, BM_SETCHECK, OGL.enable2xSaI ? (LPARAM)BST_CHECKED : (LPARAM)BST_UNCHECKED, NULL );
+			SendDlgItemMessage(hWndDlg, IDC_TEXTUREFILTER, CB_ADDSTRING, 0, (LPARAM)"None");
+			SendDlgItemMessage(hWndDlg, IDC_TEXTUREFILTER, CB_ADDSTRING, 0, (LPARAM)"2xSaI");
+			SendDlgItemMessage(hWndDlg, IDC_TEXTUREFILTER, CB_ADDSTRING, 0, (LPARAM)"xBRZ");
+			SendDlgItemMessage(hWndDlg, IDC_TEXTUREFILTER, CB_SETCURSEL, OGL.textureFilter, 0);
+
+			//SendDlgItemMessage( hWndDlg, IDC_ENABLE2XSAI, BM_SETCHECK, OGL.enable2xSaI ? (LPARAM)BST_CHECKED : (LPARAM)BST_UNCHECKED, NULL );
 			// Set forced bilinear check box
 			SendDlgItemMessage( hWndDlg, IDC_FORCEBILINEAR, BM_SETCHECK, OGL.forceBilinear ? (LPARAM)BST_CHECKED : (LPARAM)BST_UNCHECKED, NULL );
 			SendDlgItemMessage( hWndDlg, IDC_TEXTUREBPP, CB_ADDSTRING, 0, (LPARAM)"16-bit only (faster)" );

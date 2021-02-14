@@ -173,6 +173,7 @@
     <ClCompile Include="texture_env.cpp" />
     <ClCompile Include="texture_env_combine.cpp" />
     <ClCompile Include="VI.cpp" />
+    <ClCompile Include="xBRZ\xbrz.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2xSAI.h" />
@@ -213,6 +214,9 @@
     <ClInclude Include="Types.h" />
     <ClInclude Include="VI.h" />
     <ClInclude Include="wglext.h" />
+    <ClInclude Include="xBRZ\xbrz.h" />
+    <ClInclude Include="xBRZ\xbrz_config.h" />
+    <ClInclude Include="xBRZ\xbrz_tools.h" />
     <ClInclude Include="Zilmar GFX 1.3.h" />
   </ItemGroup>
   <ItemGroup>

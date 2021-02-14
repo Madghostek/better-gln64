@@ -25,6 +25,12 @@
       <UniqueIdentifier>{89846b8d-ab16-4fc3-9059-9b4458b2fa46}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
+    <Filter Include="Header Files\xBRZ">
+      <UniqueIdentifier>{4943be59-0711-4862-97fc-8b6f63ae8b9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\xBRZ">
+      <UniqueIdentifier>{e312b1a6-b144-45c2-929e-0c074c1a4830}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2xSAI.cpp">
@@ -119,6 +125,9 @@
     </ClCompile>
     <ClCompile Include="texture_env_combine.cpp">
       <Filter>Source Files\Combiners</Filter>
+    </ClCompile>
+    <ClCompile Include="xBRZ\xbrz.cpp">
+      <Filter>Source Files\xBRZ</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +247,15 @@
     </ClInclude>
     <ClInclude Include="texture_env_combine.h">
       <Filter>Header Files\Combiners</Filter>
+    </ClInclude>
+    <ClInclude Include="xBRZ\xbrz.h">
+      <Filter>Header Files\xBRZ</Filter>
+    </ClInclude>
+    <ClInclude Include="xBRZ\xbrz_config.h">
+      <Filter>Header Files\xBRZ</Filter>
+    </ClInclude>
+    <ClInclude Include="xBRZ\xbrz_tools.h">
+      <Filter>Header Files\xBRZ</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

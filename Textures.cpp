@@ -12,6 +12,8 @@
 #include "2xSAI.h"
 #include "FrameBuffer.h"
 
+#include "xBRZ/xbrz.h"
+
 TextureCache	cache;
 
 typedef u32 (*GetTexelFunc)( u64 *src, u16 x, u16 i, u8 palette );
@@ -226,7 +228,7 @@ void TextureCache_Init()
 	cache.bottom = NULL;
 	cache.numCached = 0;
 	cache.cachedBytes = 0;
-	cache.enable2xSaI = OGL.enable2xSaI;
+	cache.textureFilter = OGL.textureFilter;
 	cache.bitDepth = OGL.textureBitDepth;
 
 	glGenTextures( 32, cache.glNoiseNames );
@@ -516,20 +518,25 @@ void TextureCache_LoadBackground( CachedTexture *texInfo )
 		}
 	}
 
-	if (cache.enable2xSaI)
+	if (cache.textureFilter)
 	{
-		texInfo->textureBytes <<= 2;
+		if (cache.textureFilter == 1) OGL.filterScale = 2;
+		texInfo->textureBytes *= OGL.filterScale * OGL.filterScale;
 
-		scaledDest = (u32*)malloc( texInfo->textureBytes );
+		scaledDest = (u32*)malloc(texInfo->textureBytes);
 
-		if (glInternalFormat == GL_RGBA8)
-			_2xSaI8888( (u32*)dest, (u32*)scaledDest, texInfo->realWidth, texInfo->realHeight, texInfo->clampS, texInfo->clampT );
+		if (cache.textureFilter == xBRZ)
+			xbrz::scale(OGL.filterScale, (uint32_t*)dest, (uint32_t*)scaledDest, texInfo->realWidth, texInfo->realHeight, xbrz::ColorFormat::ARGB);
+		else if (glInternalFormat == GL_RGBA8)
+		{
+			_2xSaI8888((u32*)dest, (u32*)scaledDest, texInfo->realWidth, texInfo->realHeight, 1, 1);
+		}
 		else if (glInternalFormat == GL_RGBA4)
 			_2xSaI4444( (u16*)dest, (u16*)scaledDest, texInfo->realWidth, texInfo->realHeight, texInfo->clampS, texInfo->clampT );
 		else
 			_2xSaI5551( (u16*)dest, (u16*)scaledDest, texInfo->realWidth, texInfo->realHeight, texInfo->clampS, texInfo->clampT );
-
-		glTexImage2D( GL_TEXTURE_2D, 0, glInternalFormat, texInfo->realWidth << 1, texInfo->realHeight << 1, 0, GL_RGBA, glType, scaledDest );
+		
+		glTexImage2D( GL_TEXTURE_2D, 0, glInternalFormat, texInfo->realWidth * OGL.filterScale, texInfo->realHeight * OGL.filterScale, 0, GL_RGBA, glType, scaledDest );
 
 		free( dest );
 		free( scaledDest );
@@ -657,20 +664,25 @@ void TextureCache_Load( CachedTexture *texInfo )
 		}
 	}
 
-	if (cache.enable2xSaI)
+	if (cache.textureFilter)
 	{
-		texInfo->textureBytes <<= 2;
+		if (cache.textureFilter == 1) OGL.filterScale = 2;
+		texInfo->textureBytes *= OGL.filterScale* OGL.filterScale;
 
 		scaledDest = (u32*)malloc( texInfo->textureBytes );
 
-		if (glInternalFormat == GL_RGBA8)
-			_2xSaI8888( (u32*)dest, (u32*)scaledDest, texInfo->realWidth, texInfo->realHeight, 1, 1 );//texInfo->clampS, texInfo->clampT );
-		else if (glInternalFormat == GL_RGBA4)
-			_2xSaI4444( (u16*)dest, (u16*)scaledDest, texInfo->realWidth, texInfo->realHeight, 1, 1 );//texInfo->clampS, texInfo->clampT );
+		if (cache.textureFilter == xBRZ)
+			xbrz::scale(OGL.filterScale, (uint32_t*)dest, (uint32_t*)scaledDest, texInfo->realWidth, texInfo->realHeight, xbrz::ColorFormat::ARGB);
+		else if (glInternalFormat == GL_RGBA8)
+		{
+			_2xSaI8888((u32*)dest, (u32*)scaledDest, texInfo->realWidth, texInfo->realHeight, 1, 1);
+		}
+		else if (glInternalFormat == GL_RGBA8)
+			_2xSaI4444( (u16*)dest, (u16*)scaledDest, texInfo->realWidth, texInfo->realHeight, 1, 1 );
 		else
-			_2xSaI5551( (u16*)dest, (u16*)scaledDest, texInfo->realWidth, texInfo->realHeight, 1, 1 );//texInfo->clampS, texInfo->clampT );
-
-		glTexImage2D( GL_TEXTURE_2D, 0, glInternalFormat, texInfo->realWidth << 1, texInfo->realHeight << 1, 0, GL_RGBA, glType, scaledDest );
+			_2xSaI5551( (u16*)dest, (u16*)scaledDest, texInfo->realWidth, texInfo->realHeight, 1, 1 );
+		
+		glTexImage2D( GL_TEXTURE_2D, 0, glInternalFormat, texInfo->realWidth * OGL.filterScale, texInfo->realHeight * OGL.filterScale, 0, GL_RGBA, glType, scaledDest );
 
 		free( dest );
 		free( scaledDest );
@@ -848,10 +860,11 @@ void TextureCache_Update( u32 t )
 	u32 tileWidth, maskWidth, loadWidth, lineWidth, clampWidth, height;
 	u32 tileHeight, maskHeight, loadHeight, lineHeight, clampHeight, width;
 
-	if (cache.enable2xSaI != OGL.enable2xSaI)
+	if (OGL.filterChanged)
 	{
 		TextureCache_Destroy();
 		TextureCache_Init();
+		OGL.filterChanged = FALSE;
 	}
 
 	if (cache.bitDepth != OGL.textureBitDepth)
@@ -1094,8 +1107,8 @@ void TextureCache_Update( u32 t )
 	cache.current[t]->shiftScaleS = 1.0f;
 	cache.current[t]->shiftScaleT = 1.0f;
 
-	cache.current[t]->offsetS = OGL.enable2xSaI ? 0.25f : 0.5f;
-	cache.current[t]->offsetT = OGL.enable2xSaI ? 0.25f : 0.5f;
+	cache.current[t]->offsetS = OGL.textureFilter==1 ? 0.25f : 0.5f; //this needs to change?
+	cache.current[t]->offsetT = OGL.textureFilter==1 ? 0.25f : 0.5f;
 
 	if (gSP.textureTile[t]->shifts > 10)
 		cache.current[t]->shiftScaleS = (f32)(1 << (16 - gSP.textureTile[t]->shifts));
