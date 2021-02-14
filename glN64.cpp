@@ -22,9 +22,9 @@ HWND		hStatusBar;
 HWND		hToolBar;
 HINSTANCE	hInstance;
 #ifdef _DEBUG
-char		pluginName[] = "glN64 v0.4.1 avi debug";
+char		pluginName[] = "better glN64 v1.1 debug";
 #else
-char		pluginName[] = "glN64 v0.4.1 avi";
+char		pluginName[] = "better glN64 v1.1";
 #endif
 char		*screenDirectory;
 
@@ -143,7 +143,7 @@ EXPORT void CALL CloseDLL (void)
 
 EXPORT void CALL DllAbout ( HWND hParent )
 {
-	MessageBox( hParent, "glN64 v0.4 by Orkin\n\nWebsite: http://gln64.emulation64.com/\n\nThanks to Clements, Rice, Gonetz, Malcolm, Dave2001, cryhlove, icepir8, zilmar, Azimer, and StrmnNrmn", pluginName, MB_OK | MB_ICONINFORMATION );
+	MessageBox( hParent, "Fork of glN64 by Madghostek, originally by Orkin\nRelease v1.1\nGithub: https://github.com/Madghostek/better-gln64", pluginName, MB_OK | MB_ICONINFORMATION );
 }
 
 EXPORT void CALL DllConfig ( HWND hParent )
