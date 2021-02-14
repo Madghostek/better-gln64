@@ -48,6 +48,7 @@ void OGL_InitExtensions()
 	}
 	if (GL_KHR_debug) glDebugMessageCallback(GLErrorHandler, 0);
 	OGL.NV_register_combiners = GLEW_NV_register_combiners;
+	glGetIntegerv(GL_MAX_GENERAL_COMBINERS_NV, &OGL.maxGeneralCombiners);
 
 	OGL.ARB_multitexture = GLEW_ARB_multitexture;
 	glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB, &OGL.maxTextureUnits);

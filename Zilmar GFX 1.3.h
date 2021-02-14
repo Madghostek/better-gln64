@@ -263,7 +263,7 @@ EXPORT void CALL ViStatusChanged (void);
 *******************************************************************/ 
 EXPORT void CALL ViWidthChanged (void);
 
-EXPORT void CALL ReadScreen(void** dest, long* width, long* height);
+EXPORT void CALL ReadScreen2(void** dest, long* width, long* height);
 
 EXPORT void CALL DllCrtFree(void* block)
 {
