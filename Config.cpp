@@ -52,6 +52,25 @@ struct
 	{ 1600, 1200, "1600 x 1200" }
 };
 
+void EnableCustom(HWND hWndDlg, BOOL enable)
+{
+	EnableWindow(GetDlgItem(hWndDlg, IDC_WINDOWED_X), enable);
+	EnableWindow(GetDlgItem(hWndDlg, IDC_WINDOWED_Y), enable);
+}
+
+void LockTextureBits(HWND hWndDlg, BOOL lock)
+{
+	if (lock)
+	{
+		SendMessage(GetDlgItem(hWndDlg, IDC_TEXTUREBPP), CB_SETCURSEL, 2, 0);
+		EnableWindow(GetDlgItem(hWndDlg, IDC_TEXTUREBPP), FALSE);
+	}
+	else
+	{
+		EnableWindow(GetDlgItem(hWndDlg, IDC_TEXTUREBPP), TRUE);
+	}
+}
+
 void Config_LoadConfig()
 {
 	DWORD value, size;
@@ -75,7 +94,8 @@ void Config_LoadConfig()
 		RegQueryValueEx( hKey, "Texture Filter", 0, NULL, (BYTE*)&value, &size );
 		OGL.textureFilter = value;
 		if (OGL.textureFilter == 1) OGL.filterScale = 2;
-		else if (OGL.textureFilter == 2) OGL.filterScale = 4; //hardcoded atm
+		else if (OGL.textureFilter == 2)
+			OGL.filterScale = 4; //hardcoded atm
 
 		RegQueryValueEx( hKey, "Enable Fog", 0, NULL, (BYTE*)&value, &size );
 		OGL.fog = value ? TRUE : FALSE;
@@ -308,12 +328,6 @@ void UpdateFullscreenConfig( HWND hWndDlg )
 		SendDlgItemMessage( hWndDlg, IDC_FULLSCREENREFRESH, CB_SETCURSEL, SendDlgItemMessage( hWndDlg, IDC_FULLSCREENREFRESH, CB_GETCOUNT, 0, 0 ) - 1, 0 );
 }
 
-void EnableCustom(HWND hWndDlg, BOOL enable)
-{
-	EnableWindow(GetDlgItem(hWndDlg, IDC_WINDOWED_X), enable);
-	EnableWindow(GetDlgItem(hWndDlg, IDC_WINDOWED_Y), enable);
-}
-
 BOOL CALLBACK ConfigDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM lParam ) 
 { 
 	char text[256];
@@ -366,6 +380,7 @@ BOOL CALLBACK ConfigDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
 			SendDlgItemMessage(hWndDlg, IDC_TEXTUREFILTER, CB_ADDSTRING, 0, (LPARAM)"2xSaI");
 			SendDlgItemMessage(hWndDlg, IDC_TEXTUREFILTER, CB_ADDSTRING, 0, (LPARAM)"xBRZ");
 			SendDlgItemMessage(hWndDlg, IDC_TEXTUREFILTER, CB_SETCURSEL, OGL.textureFilter, 0);
+			if(OGL.textureFilter == xBRZ) LockTextureBits(hConfigDlg, TRUE);
 
 			//SendDlgItemMessage( hWndDlg, IDC_ENABLE2XSAI, BM_SETCHECK, OGL.enable2xSaI ? (LPARAM)BST_CHECKED : (LPARAM)BST_UNCHECKED, NULL );
 			// Set forced bilinear check box
@@ -437,6 +452,18 @@ BOOL CALLBACK ConfigDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
 						else
 						{
 							EnableCustom(hWndDlg, FALSE);
+						}
+					}
+				case IDC_TEXTUREFILTER:
+					if (HIWORD(wParam) == CBN_SELCHANGE)
+					{
+						if (SendDlgItemMessage(hWndDlg, IDC_TEXTUREFILTER, CB_GETCURSEL, 0, 0) == xBRZ)
+						{
+							LockTextureBits(hWndDlg, TRUE);
+						}
+						else
+						{
+							LockTextureBits(hWndDlg, FALSE);
 						}
 					}
 			} 
