@@ -159,7 +159,11 @@ void OGL_ResizeWindow()
 		OGL.height = OGL.windowedHeight;
 
 		GetClientRect( hWnd, &windowRect );
-		GetWindowRect( hStatusBar, &statusRect );
+
+		if (hStatusBar)
+			GetWindowRect(hStatusBar, &statusRect);
+		else
+			statusRect.bottom = statusRect.top = 0;
 
 		if (hToolBar)
 			GetWindowRect( hToolBar, &toolRect );
