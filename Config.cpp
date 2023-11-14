@@ -84,13 +84,13 @@ void Config_LoadConfig()
 
 	if (hKey)
 	{
-        RegQueryValueEx( hKey, "Fullscreen Bit Depth", 0, NULL, (BYTE*)&OGL.fullscreen_bpp, &size );
-		RegQueryValueEx( hKey, "Fullscreen Width", 0, NULL, (BYTE*)&OGL.fullscreen_width, &size );
-		RegQueryValueEx( hKey, "Fullscreen Height", 0, NULL, (BYTE*)&OGL.fullscreen_height, &size );
-		RegQueryValueEx( hKey, "Fullscreen Refresh", 0, NULL, (BYTE*)&OGL.fullscreen_refresh_rate, &size );
-		RegQueryValueEx( hKey, "Windowed Width", 0, NULL, (BYTE*)&OGL.windowed_width, &size );
-		RegQueryValueEx( hKey, "Windowed Height", 0, NULL, (BYTE*)&OGL.windowed_height, &size );
-		RegQueryValueEx( hKey, "Windowed Width", 0, NULL, (BYTE*)&OGL.windowed_width, &size );
+        RegQueryValueEx( hKey, "Fullscreen Bit Depth", 0, NULL, (BYTE*)&OGL.fullscreenBits, &size );
+		RegQueryValueEx( hKey, "Fullscreen Width", 0, NULL, (BYTE*)&OGL.fullscreenWidth, &size );
+		RegQueryValueEx( hKey, "Fullscreen Height", 0, NULL, (BYTE*)&OGL.fullscreenHeight, &size );
+		RegQueryValueEx( hKey, "Fullscreen Refresh", 0, NULL, (BYTE*)&OGL.fullscreenRefresh, &size );
+		RegQueryValueEx( hKey, "Windowed Width", 0, NULL, (BYTE*)&OGL.windowedWidth, &size );
+		RegQueryValueEx( hKey, "Windowed Height", 0, NULL, (BYTE*)&OGL.windowedHeight, &size );
+		RegQueryValueEx( hKey, "Windowed Width", 0, NULL, (BYTE*)&OGL.windowedWidth, &size );
 		RegQueryValueEx( hKey, "Force Bilinear", 0, NULL, (BYTE*)&value, &size );
 		OGL.forceBilinear = value ? TRUE : FALSE;
 
@@ -124,12 +124,12 @@ void Config_LoadConfig()
 	else
 	{
 		OGL.fog = TRUE;
-		OGL.windowed_width = 640;
-		OGL.windowed_height = 480;
-		OGL.fullscreen_width = 640;
-		OGL.fullscreen_height = 480;
-		OGL.fullscreen_bpp = 16;
-		OGL.fullscreen_refresh_rate = 60;
+		OGL.windowedWidth = 640;
+		OGL.windowedHeight = 480;
+		OGL.fullscreenWidth = 640;
+		OGL.fullscreenHeight = 480;
+		OGL.fullscreenBits = 16;
+		OGL.fullscreenRefresh = 60;
 		OGL.forceBilinear = FALSE;
 		cache.maxBytes = 32 * 1048576;
 		OGL.frameBufferTextures = FALSE;
@@ -146,12 +146,12 @@ void Config_SaveConfig()
 
 	RegCreateKeyEx( HKEY_CURRENT_USER, "Software\\N64 Emulation\\DLL\\glN64", 0, NULL, REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &hKey, NULL );
 
-	RegSetValueEx( hKey, "Fullscreen Bit Depth", 0, REG_DWORD, (BYTE*)&OGL.fullscreen_bpp, 4 );
-	RegSetValueEx( hKey, "Fullscreen Width", 0, REG_DWORD, (BYTE*)&OGL.fullscreen_width, 4 );
-	RegSetValueEx( hKey, "Fullscreen Height", 0, REG_DWORD, (BYTE*)&OGL.fullscreen_height, 4 );
-	RegSetValueEx( hKey, "Fullscreen Refresh", 0, REG_DWORD, (BYTE*)&OGL.fullscreen_refresh_rate, 4 );
-	RegSetValueEx( hKey, "Windowed Width", 0, REG_DWORD, (BYTE*)&OGL.windowed_width, 4 );
-	RegSetValueEx( hKey, "Windowed Height", 0, REG_DWORD, (BYTE*)&OGL.windowed_height, 4 );
+	RegSetValueEx( hKey, "Fullscreen Bit Depth", 0, REG_DWORD, (BYTE*)&OGL.fullscreenBits, 4 );
+	RegSetValueEx( hKey, "Fullscreen Width", 0, REG_DWORD, (BYTE*)&OGL.fullscreenWidth, 4 );
+	RegSetValueEx( hKey, "Fullscreen Height", 0, REG_DWORD, (BYTE*)&OGL.fullscreenHeight, 4 );
+	RegSetValueEx( hKey, "Fullscreen Refresh", 0, REG_DWORD, (BYTE*)&OGL.fullscreenRefresh, 4 );
+	RegSetValueEx( hKey, "Windowed Width", 0, REG_DWORD, (BYTE*)&OGL.windowedWidth, 4 );
+	RegSetValueEx( hKey, "Windowed Height", 0, REG_DWORD, (BYTE*)&OGL.windowedHeight, 4 );
 
 	value = OGL.forceBilinear ? 1 : 0;
 	RegSetValueEx( hKey, "Force Bilinear", 0, REG_DWORD, (BYTE*)&value, 4 );
@@ -202,11 +202,11 @@ void Config_ApplyDlgConfig( HWND hWndDlg )
 	OGL.originAdjust = (OGL.textureFilter==1 ? 0.25 : 0.50);
 	OGL.ignoreScissor = (SendDlgItemMessage(hWndDlg, IDC_SCISSOR, BM_GETCHECK, NULL, NULL) == BST_CHECKED);
 
-	OGL.fullscreen_bpp = fullscreen.bitDepth[SendDlgItemMessage( hWndDlg, IDC_FULLSCREENBITDEPTH, CB_GETCURSEL, 0, 0 )];
+	OGL.fullscreenBits = fullscreen.bitDepth[SendDlgItemMessage( hWndDlg, IDC_FULLSCREENBITDEPTH, CB_GETCURSEL, 0, 0 )];
 	i = SendDlgItemMessage( hWndDlg, IDC_FULLSCREENRES, CB_GETCURSEL, 0, 0 );
-	OGL.fullscreen_width = fullscreen.resolution[i].width;
-	OGL.fullscreen_height = fullscreen.resolution[i].height;
-	OGL.fullscreen_refresh_rate = fullscreen.refreshRate[SendDlgItemMessage( hWndDlg, IDC_FULLSCREENREFRESH, CB_GETCURSEL, 0, 0 )];
+	OGL.fullscreenWidth = fullscreen.resolution[i].width;
+	OGL.fullscreenHeight = fullscreen.resolution[i].height;
+	OGL.fullscreenRefresh = fullscreen.refreshRate[SendDlgItemMessage( hWndDlg, IDC_FULLSCREENREFRESH, CB_GETCURSEL, 0, 0 )];
 
 	i = SendDlgItemMessage( hWndDlg, IDC_TEXTUREBPP, CB_GETCURSEL, 0, 0 );
 	OGL.textureBitDepth = i;
@@ -216,14 +216,14 @@ void Config_ApplyDlgConfig( HWND hWndDlg )
 	{
 		char val[32];
 		SendMessage(GetDlgItem(hWndDlg,IDC_WINDOWED_X), WM_GETTEXT, 32, (LPARAM)val);
-		OGL.windowed_width = atoi(val);
+		OGL.windowedWidth = atoi(val);
 		SendMessage(GetDlgItem(hWndDlg, IDC_WINDOWED_Y), WM_GETTEXT, 32, (LPARAM)val);
-		OGL.windowed_height = atoi(val);
+		OGL.windowedHeight = atoi(val);
 	}
 	else
 	{
-		OGL.windowed_width = windowedModes[i].width;
-		OGL.windowed_height = windowedModes[i].height;
+		OGL.windowedWidth = windowedModes[i].width;
+		OGL.windowedHeight = windowedModes[i].height;
 	}
 
 	OGL.frameBufferTextures = (SendDlgItemMessage( hWndDlg, IDC_FRAMEBUFFER, BM_GETCHECK, NULL, NULL ) == BST_CHECKED);
@@ -349,10 +349,10 @@ BOOL CALLBACK ConfigDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
 		case WM_INITDIALOG:
 			hConfigDlg = hWndDlg;
 
-			fullscreen.selected.width = OGL.fullscreen_width;
-			fullscreen.selected.height = OGL.fullscreen_height;
-			fullscreen.selected.bitDepth = OGL.fullscreen_bpp;
-			fullscreen.selected.refreshRate = OGL.fullscreen_refresh_rate;
+			fullscreen.selected.width = OGL.fullscreenWidth;
+			fullscreen.selected.height = OGL.fullscreenHeight;
+			fullscreen.selected.bitDepth = OGL.fullscreenBits;
+			fullscreen.selected.refreshRate = OGL.fullscreenRefresh;
 			UpdateFullscreenConfig( hWndDlg );
 
 			EnumDisplaySettings( NULL, ENUM_CURRENT_SETTINGS, &deviceMode );
@@ -364,8 +364,8 @@ BOOL CALLBACK ConfigDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
 					(deviceMode.dmPelsHeight > windowedModes[i].height))
 				{
 					SendDlgItemMessage( hWndDlg, IDC_WINDOWEDRES, CB_ADDSTRING, 0, (LPARAM)windowedModes[i].description );
-					if ((OGL.windowed_width == windowedModes[i].width) &&
-						(OGL.windowed_height == windowedModes[i].height))
+					if ((OGL.windowedWidth == windowedModes[i].width) &&
+						(OGL.windowedHeight == windowedModes[i].height))
 					{
 						SendDlgItemMessage(hWndDlg, IDC_WINDOWEDRES, CB_SETCURSEL, i, 0);
 						custom = false;
@@ -375,9 +375,9 @@ BOOL CALLBACK ConfigDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
 			SendDlgItemMessage(hWndDlg, IDC_WINDOWEDRES, CB_ADDSTRING, 0, (LPARAM)"Custom...");
 
 			char val[32];
-			sprintf(val,"%d", OGL.windowed_width);
+			sprintf(val,"%d", OGL.windowedWidth);
 			SendDlgItemMessage(hWndDlg, IDC_WINDOWED_X, WM_SETTEXT, 0, (LPARAM)val);
-			sprintf(val, "%d", OGL.windowed_height);
+			sprintf(val, "%d", OGL.windowedHeight);
 			SendDlgItemMessage(hWndDlg, IDC_WINDOWED_Y, WM_SETTEXT, 0, (LPARAM)val);
 			if (custom)
 			{

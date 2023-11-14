@@ -24,7 +24,7 @@ void OGL_ReadPixels()
 	//glReadBuffer(GL_FRONT);
 
 	glReadBuffer(GL_BACK);
-	glReadPixels(0, OGL.height_offset, OGL.width, OGL.height,
+	glReadPixels(0, OGL.heightOffset, OGL.width, OGL.height,
 		GL_BGR, GL_UNSIGNED_BYTE, gCapturedPixels);
 	if (GLenum err = glGetError()) printf("%s\n", gluErrorString(err));
 	glReadBuffer(oldMode); //restore old read buffer
@@ -137,8 +137,8 @@ void OGL_InitStates()
 
 void OGL_UpdateScale()
 {
-	OGL.scale_x = OGL.width / (float)VI.width;
-	OGL.scale_y = OGL.height / (float)VI.height;
+	OGL.scaleX = OGL.width / (float)VI.width;
+	OGL.scaleY = OGL.height / (float)VI.height;
 }
 
 void OGL_ResizeWindow()
@@ -147,16 +147,16 @@ void OGL_ResizeWindow()
 
 	if (OGL.fullscreen)
 	{
-		OGL.width = OGL.fullscreen_width;
-		OGL.height = OGL.fullscreen_height;
-		OGL.height_offset = 0;
+		OGL.width = OGL.fullscreenWidth;
+		OGL.height = OGL.fullscreenHeight;
+		OGL.heightOffset = 0;
 
 		SetWindowPos( hWnd, NULL, 0, 0,	OGL.width, OGL.height, SWP_NOACTIVATE | SWP_NOZORDER | SWP_SHOWWINDOW );
 	}
 	else
 	{
-		OGL.width = OGL.windowed_width;
-		OGL.height = OGL.windowed_height;
+		OGL.width = OGL.windowedWidth;
+		OGL.height = OGL.windowedHeight;
 
 		GetClientRect( hWnd, &windowRect );
 
@@ -170,9 +170,9 @@ void OGL_ResizeWindow()
 		else
 			toolRect.bottom = toolRect.top = 0;
 
-		OGL.height_offset = (statusRect.bottom - statusRect.top);
-		windowRect.right = windowRect.left + OGL.windowed_width - 1;
-		windowRect.bottom = windowRect.top + OGL.windowed_height - 1 + OGL.height_offset;
+		OGL.heightOffset = (statusRect.bottom - statusRect.top);
+		windowRect.right = windowRect.left + OGL.windowedWidth - 1;
+		windowRect.bottom = windowRect.top + OGL.windowedHeight - 1 + OGL.heightOffset;
 
 		AdjustWindowRect( &windowRect, GetWindowLong( hWnd, GWL_STYLE ), GetMenu( hWnd ) != NULL );
 
@@ -292,8 +292,8 @@ void OGL_UpdateCullFace()
 
 void OGL_UpdateViewport()
 {
-	glViewport( gSP.viewport.x * OGL.scale_x, (VI.height - (gSP.viewport.y + gSP.viewport.height)) * OGL.scale_y + OGL.height_offset, 
-		gSP.viewport.width * OGL.scale_x, gSP.viewport.height * OGL.scale_y ); 
+	glViewport( gSP.viewport.x * OGL.scaleX, (VI.height - (gSP.viewport.y + gSP.viewport.height)) * OGL.scaleY + OGL.heightOffset, 
+		gSP.viewport.width * OGL.scaleX, gSP.viewport.height * OGL.scaleY ); 
 	glDepthRange( 0.0f, 1.0f );//gSP.viewport.nearz, gSP.viewport.farz );
 }
 
@@ -370,8 +370,8 @@ void OGL_UpdateStates()
 
 	if (gDP.changed & CHANGED_SCISSOR)
 	{
-		glScissor( gDP.scissor.ulx * OGL.scale_x, (VI.height - gDP.scissor.lry) * OGL.scale_y + OGL.height_offset,
-			(gDP.scissor.lrx - gDP.scissor.ulx) * OGL.scale_x, (gDP.scissor.lry - gDP.scissor.uly) * OGL.scale_y );
+		glScissor( gDP.scissor.ulx * OGL.scaleX, (VI.height - gDP.scissor.lry) * OGL.scaleY + OGL.heightOffset,
+			(gDP.scissor.lrx - gDP.scissor.ulx) * OGL.scaleX, (gDP.scissor.lry - gDP.scissor.uly) * OGL.scaleY );
 	}
 
 	if (gSP.changed & CHANGED_VIEWPORT)
@@ -591,7 +591,7 @@ void OGL_DrawLine( SPVertex *vertices, int v0, int v1, float width )
 	if (gSP.changed || gDP.changed)
 		OGL_UpdateStates();
 
-	glLineWidth( width * OGL.scale_x );
+	glLineWidth( width * OGL.scaleX );
 
 	glBegin( GL_LINES );
 		for (int i = 0; i < 2; i++)
@@ -627,7 +627,7 @@ void OGL_DrawRect( int ulx, int uly, int lrx, int lry, float *color )
 	glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
 	glOrtho( 0, VI.width, VI.height, 0, 1.0f, -1.0f );
-	glViewport( 0, OGL.height_offset, OGL.width, OGL.height );
+	glViewport( 0, OGL.heightOffset, OGL.width, OGL.height );
 	glDepthRange( 0.0f, 1.0f );
 
 	glColor4f( color[0], color[1], color[2], color[3] );
@@ -659,7 +659,7 @@ void OGL_DrawTexturedRect( float ulx, float uly, float lrx, float lry, float uls
 	glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
 	glOrtho( 0, VI.width, VI.height, 0, 1.0f, -1.0f );
-	glViewport( 0, OGL.height_offset, OGL.width, OGL.height );
+	glViewport( 0, OGL.heightOffset, OGL.width, OGL.height );
 
 	if (combiner.usesT0)
 	{
@@ -840,7 +840,7 @@ void OGL_SaveScreenshot()
 	char *pixelData = (char*)malloc( OGL.width * OGL.height * 3 );
 
 	glReadBuffer( GL_FRONT );
-	glReadPixels( 0, OGL.height_offset, OGL.width, OGL.height, GL_BGR_EXT, GL_UNSIGNED_BYTE, pixelData );
+	glReadPixels( 0, OGL.heightOffset, OGL.width, OGL.height, GL_BGR_EXT, GL_UNSIGNED_BYTE, pixelData );
 	glReadBuffer( GL_BACK );
 
 	infoHeader.biSize = sizeof( BITMAPINFOHEADER );

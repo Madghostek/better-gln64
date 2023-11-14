@@ -79,10 +79,10 @@ EXPORT void CALL ChangeWindow (void)
 		DEVMODE fullscreenMode;
 		memset( &fullscreenMode, 0, sizeof(DEVMODE) );
 		fullscreenMode.dmSize = sizeof(DEVMODE);
-		fullscreenMode.dmPelsWidth			= OGL.fullscreen_width;
-		fullscreenMode.dmPelsHeight			= OGL.fullscreen_height;
-		fullscreenMode.dmBitsPerPel			= OGL.fullscreen_bpp;
-		fullscreenMode.dmDisplayFrequency	= OGL.fullscreen_refresh_rate;
+		fullscreenMode.dmPelsWidth			= OGL.fullscreenWidth;
+		fullscreenMode.dmPelsHeight			= OGL.fullscreenHeight;
+		fullscreenMode.dmBitsPerPel			= OGL.fullscreenBits;
+		fullscreenMode.dmDisplayFrequency	= OGL.fullscreenRefresh;
 		fullscreenMode.dmFields = DM_BITSPERPEL | DM_PELSWIDTH | DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
 
 		if (ChangeDisplaySettings( &fullscreenMode, CDS_FULLSCREEN ) != DISP_CHANGE_SUCCESSFUL)
