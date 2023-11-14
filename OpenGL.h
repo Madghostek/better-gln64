@@ -22,8 +22,8 @@ struct GLVertex
 
 struct GLInfo
 {
-	HGLRC	wgl_ctx, hPbufferRC;
-	HDC		main_hdc, hPbufferDC;
+	HGLRC	hRC, hPbufferRC;
+	HDC		hDC, hPbufferDC;
 	HWND	hWnd;
 	HPBUFFERARB	hPbuffer;
 
