@@ -37,7 +37,19 @@ void VI_UpdateScreen()
 {
 	glFinish();
 
-	if (OGL.frameBufferTextures)
+	if (!OGL.frameBufferTextures)
+	{
+		if (gSP.changed & CHANGED_COLORBUFFER)
+		{
+			SwapBuffers( OGL.main_hdc );
+			gSP.changed &= ~CHANGED_COLORBUFFER;
+#ifdef DEBUG
+			while (Debug.paused && !Debug.step);
+			Debug.step = FALSE;
+#endif
+		}
+	}
+	else
 	{
 		FrameBuffer *current = FrameBuffer_FindBuffer( *REG.VI_ORIGIN );
 
@@ -59,17 +71,4 @@ void VI_UpdateScreen()
 #endif
 		}
 	}
-	else
-	{
-		if (gSP.changed & CHANGED_COLORBUFFER)
-		{
-			SwapBuffers( OGL.main_hdc );
-			gSP.changed &= ~CHANGED_COLORBUFFER;
-#ifdef DEBUG
-			while (Debug.paused && !Debug.step);
-			Debug.step = FALSE;
-#endif
-		}
-	}
-	glFinish();
 }
