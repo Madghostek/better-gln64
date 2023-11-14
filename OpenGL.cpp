@@ -206,33 +206,33 @@ bool OGL_Start()
 		0, 0, 0                           // layer masks ignored 
 	};
 
-	if ((OGL.hDC = GetDC( hWnd )) == NULL)
+	if ((OGL.main_hdc = GetDC( hWnd )) == NULL)
 	{
 		MessageBox( hWnd, "Error while getting a device context!", pluginName, MB_ICONERROR | MB_OK );
 		return FALSE;
 	}
 
-	if ((pixelFormat = ChoosePixelFormat( OGL.hDC, &pfd )) == 0)
+	if ((pixelFormat = ChoosePixelFormat( OGL.main_hdc, &pfd )) == 0)
 	{
 		MessageBox( hWnd, "Unable to find a suitable pixel format!", pluginName, MB_ICONERROR | MB_OK );
 		OGL_Stop();
 		return FALSE;
 	}
 
-	if ((SetPixelFormat( OGL.hDC, pixelFormat, &pfd )) == FALSE)
+	if ((SetPixelFormat( OGL.main_hdc, pixelFormat, &pfd )) == FALSE)
 	{
 		MessageBox( hWnd, "Error while setting pixel format!", pluginName, MB_ICONERROR | MB_OK );
 		OGL_Stop();
 		return FALSE;
 	}
-	if ((OGL.hRC = wglCreateContext( OGL.hDC )) == NULL)
+	if ((OGL.wgl_ctx = wglCreateContext( OGL.main_hdc )) == NULL)
 	{
 		MessageBox( hWnd, "Error while creating OpenGL context!", pluginName, MB_ICONERROR | MB_OK );
 		OGL_Stop();
 		return FALSE;
 	}
 
-	if ((wglMakeCurrent( OGL.hDC, OGL.hRC )) == FALSE)
+	if ((wglMakeCurrent( OGL.main_hdc, OGL.wgl_ctx )) == FALSE)
 	{
 		MessageBox( hWnd, "Error while making OpenGL context current!", pluginName, MB_ICONERROR | MB_OK );
 		OGL_Stop();
@@ -262,16 +262,16 @@ void OGL_Stop()
 
 	wglMakeCurrent( NULL, NULL );
 
-	if (OGL.hRC)
+	if (OGL.wgl_ctx)
 	{
-		wglDeleteContext( OGL.hRC );
-		OGL.hRC = NULL;
+		wglDeleteContext( OGL.wgl_ctx );
+		OGL.wgl_ctx = NULL;
 	}
 
-	if (OGL.hDC)
+	if (OGL.main_hdc)
 	{
-		ReleaseDC( hWnd, OGL.hDC );
-		OGL.hDC = NULL;
+		ReleaseDC( hWnd, OGL.main_hdc );
+		OGL.main_hdc = NULL;
 	}
 }
 

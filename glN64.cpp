@@ -43,8 +43,8 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD dwReason, LPVOID lpvReserved)
 	{
 		Config_LoadConfig();
 		RSP.thread = NULL;
-		OGL.hRC = NULL;
-		OGL.hDC = NULL;
+		OGL.wgl_ctx = NULL;
+		OGL.main_hdc = NULL;
 /*		OGL.hPbufferRC = NULL;
 		OGL.hPbufferDC = NULL;
 		OGL.hPbuffer = NULL;*/
