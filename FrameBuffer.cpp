@@ -152,15 +152,15 @@ void FrameBuffer_SaveBuffer( u32 address, u16 size, u16 width, u16 height )
 			(current->height == height) &&
 			(current->size == size))
 		{
-			if ((current->scaleX != OGL.scaleX) ||
-				(current->scaleY != OGL.scaleY))
+			if ((current->scaleX != OGL.scale_x) ||
+				(current->scaleY != OGL.scale_y))
 			{
 				FrameBuffer_Remove( current );
 				break;
 			}
 
 			glBindTexture( GL_TEXTURE_2D, current->texture->glName );
-			glCopyTexSubImage2D( GL_TEXTURE_2D, 0, 0, 0, 0, OGL.height - current->texture->height + OGL.heightOffset, current->texture->width, current->texture->height );
+			glCopyTexSubImage2D( GL_TEXTURE_2D, 0, 0, 0, 0, OGL.height - current->texture->height + OGL.height_offset, current->texture->width, current->texture->height );
 			*(u32*)&RDRAM[current->startAddress] = current->startAddress;
 
 			current->changed = TRUE;
@@ -181,11 +181,11 @@ void FrameBuffer_SaveBuffer( u32 address, u16 size, u16 width, u16 height )
 	current->width = width;
 	current->height = height;
 	current->size = size;
-	current->scaleX = OGL.scaleX;
-	current->scaleY = OGL.scaleY;
+	current->scaleX = OGL.scale_x;
+	current->scaleY = OGL.scale_y;
 
-	current->texture->width = current->width * OGL.scaleX;
-	current->texture->height = current->height * OGL.scaleY;
+	current->texture->width = current->width * OGL.scale_x;
+	current->texture->height = current->height * OGL.scale_y;
 	current->texture->clampS = 1;
 	current->texture->clampT = 1;
 	current->texture->address = current->startAddress;
@@ -196,13 +196,13 @@ void FrameBuffer_SaveBuffer( u32 address, u16 size, u16 width, u16 height )
 	current->texture->maskT = 0;
 	current->texture->mirrorS = 0;
 	current->texture->mirrorT = 0;
-	current->texture->realWidth = pow2( current->width * OGL.scaleX );
-	current->texture->realHeight = pow2( current->height * OGL.scaleY );
+	current->texture->realWidth = pow2( current->width * OGL.scale_x );
+	current->texture->realHeight = pow2( current->height * OGL.scale_y );
 	current->texture->textureBytes = current->texture->realWidth * current->texture->realHeight * 4;
 	cache.cachedBytes += current->texture->textureBytes;
 
 	glBindTexture( GL_TEXTURE_2D, current->texture->glName );
-	glCopyTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA8, 0, OGL.height - current->texture->height + OGL.heightOffset, current->texture->realWidth, current->texture->realHeight, 0 );
+	glCopyTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA8, 0, OGL.height - current->texture->height + OGL.height_offset, current->texture->realWidth, current->texture->realHeight, 0 );
 	*(u32*)&RDRAM[current->startAddress] = current->startAddress;
 
 	current->changed = TRUE;
@@ -250,7 +250,7 @@ void FrameBuffer_RenderBuffer( u32 address )
 			glMatrixMode( GL_PROJECTION );
 			glLoadIdentity();
  			glOrtho( 0, OGL.width, 0, OGL.height, -1.0f, 1.0f );
-			glViewport( 0, OGL.heightOffset, OGL.width, OGL.height );
+			glViewport( 0, OGL.height_offset, OGL.width, OGL.height );
 			glDisable( GL_SCISSOR_TEST );
 
 			float u1, v1;
@@ -335,7 +335,7 @@ void FrameBuffer_RestoreBuffer( u32 address, u16 size, u16 width )
 			glLoadIdentity();
  			glOrtho( 0, OGL.width, 0, OGL.height, -1.0f, 1.0f );
 //			glOrtho( 0, RDP.width, RDP.height, 0, -1.0f, 1.0f );
-			glViewport( 0, OGL.heightOffset, OGL.width, OGL.height );
+			glViewport( 0, OGL.height_offset, OGL.width, OGL.height );
 
 			float u1, v1;
 
@@ -386,8 +386,8 @@ FrameBuffer *FrameBuffer_FindBuffer( u32 address )
 
 void FrameBuffer_ActivateBufferTexture( s16 t, FrameBuffer *buffer )
 {
-    buffer->texture->scaleS = OGL.scaleX / (float)buffer->texture->realWidth;
-    buffer->texture->scaleT = OGL.scaleY / (float)buffer->texture->realHeight;
+    buffer->texture->scaleS = OGL.scale_x / (float)buffer->texture->realWidth;
+    buffer->texture->scaleT = OGL.scale_y / (float)buffer->texture->realHeight;
 
 	if (gSP.textureTile[t]->shifts > 10)
 		buffer->texture->shiftScaleS = (float)(1 << (16 - gSP.textureTile[t]->shifts));

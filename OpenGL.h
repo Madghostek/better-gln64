@@ -22,57 +22,55 @@ struct GLVertex
 
 struct GLInfo
 {
-	HGLRC	wgl_ctx, hPbufferRC;
-	HDC		main_hdc, hPbufferDC;
-	HWND	hWnd;
-	HPBUFFERARB	hPbuffer;
+	HGLRC wgl_ctx;
+	HDC main_hdc;
 
-	DWORD	fullscreenWidth, fullscreenHeight, fullscreenBits, fullscreenRefresh;
-	DWORD	width, height, windowedWidth, windowedHeight, heightOffset;
+	DWORD fullscreen_width, fullscreen_height, fullscreen_bpp, fullscreen_refresh_rate;
+	DWORD windowed_width, windowed_height;
+	DWORD width, height, height_offset;
 
-	BOOL	fullscreen, forceBilinear, fog;
+	BOOL fullscreen, forceBilinear, fog;
 
-	float	scaleX, scaleY;
+	float scale_x, scale_y;
 
-	BOOL	ATI_texture_env_combine3;	// Radeon
-	BOOL	ATIX_texture_env_route;		// Radeon
+	BOOL ATI_texture_env_combine3; // Radeon
+	BOOL ATIX_texture_env_route; // Radeon
 
-	BOOL	ARB_multitexture;			// TNT, GeForce, Rage 128, Radeon
-	BOOL	ARB_texture_env_combine;	// GeForce, Rage 128, Radeon
-	BOOL	ARB_texture_env_crossbar;	// Radeon (GeForce supports it, but doesn't report it)
+	BOOL ARB_multitexture; // TNT, GeForce, Rage 128, Radeon
+	BOOL ARB_texture_env_combine; // GeForce, Rage 128, Radeon
+	BOOL ARB_texture_env_crossbar; // Radeon (GeForce supports it, but doesn't report it)
 
-	BOOL	EXT_fog_coord;				// TNT, GeForce, Rage 128, Radeon
-	BOOL	EXT_texture_env_combine;	// TNT, GeForce, Rage 128, Radeon
-	BOOL	EXT_secondary_color;		// GeForce, Radeon
+	BOOL EXT_fog_coord; // TNT, GeForce, Rage 128, Radeon
+	BOOL EXT_texture_env_combine; // TNT, GeForce, Rage 128, Radeon
+	BOOL EXT_secondary_color; // GeForce, Radeon
 
-	BOOL	NV_texture_env_combine4;	// TNT, GeForce
-	BOOL	NV_register_combiners;		// GeForce
-	BOOL	ARB_buffer_region;
-	BOOL	ARB_pbuffer;
-	BOOL	ARB_render_texture;
-	BOOL	ARB_pixel_format;
+	BOOL NV_texture_env_combine4; // TNT, GeForce
+	BOOL NV_register_combiners; // GeForce
+	BOOL ARB_buffer_region;
+	BOOL ARB_pbuffer;
+	BOOL ARB_render_texture;
+	BOOL ARB_pixel_format;
 
-	int		maxTextureUnits;			// TNT = 2, GeForce = 2-4, Rage 128 = 2, Radeon = 3-6
-	int		maxGeneralCombiners;
+	int maxTextureUnits; // TNT = 2, GeForce = 2-4, Rage 128 = 2, Radeon = 3-6
+	int maxGeneralCombiners;
 
-	int		textureFilter; //0 - None, 1 - 2xSai, 2 - xBRZ
-	BOOL	frameBufferTextures;
-	int		textureBitDepth;
-	float	originAdjust;
-	int		filterScale = 4; //for xBRZ
-	BOOL	filterChanged = FALSE; //for cache
+	int textureFilter; //0 - None, 1 - 2xSai, 2 - xBRZ
+	BOOL frameBufferTextures;
+	int textureBitDepth;
+	float originAdjust;
+	int filterScale = 4; //for xBRZ
+	BOOL filterChanged = FALSE; //for cache
 
 	GLVertex vertices[256];
-	BYTE	triangles[80][3];
-	BYTE	numTriangles;
-	BYTE	numVertices;
-	HWND	hFullscreenWnd;
+	BYTE triangles[80][3];
+	BYTE numTriangles;
+	BYTE numVertices;
 
-	BOOL	usePolygonStipple;
-	GLubyte	stipplePattern[32][8][128];
-	BYTE	lastStipple;
+	BOOL usePolygonStipple;
+	GLubyte stipplePattern[32][8][128];
+	BYTE lastStipple;
 
-	BYTE	combiner;
+	BYTE combiner;
 
 	BOOL ignoreScissor;
 };
