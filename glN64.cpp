@@ -380,13 +380,13 @@ EXPORT void CALL ReadScreen2(void** dest, long* width, long* height)
 	}
 }
 
-void CALL get_video_size(long* width, long* height)
+void CALL mge_get_video_size(long* width, long* height)
 {
 	*width = OGL.width;
 	*height = OGL.height;
 }
 
-void CALL read_video(void** buffer)
+void CALL mge_read_video(void** buffer)
 {
 	extern void* gCapturedPixels;
 	gCapturedPixels = *buffer;
