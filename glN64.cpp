@@ -22,9 +22,9 @@ HWND		hStatusBar;
 HWND		hToolBar;
 HINSTANCE	hInstance;
 #ifdef _DEBUG
-char		pluginName[] = "better glN64 v1.1 debug";
+char		pluginName[] = "better glN64 v1.2 debug";
 #else
-char		pluginName[] = "better glN64 v1.1";
+char		pluginName[] = "better glN64 v1.2";
 #endif
 char		*screenDirectory;
 
@@ -373,6 +373,23 @@ EXPORT void CALL ReadScreen2(void** dest, long* width, long* height)
 	if (*dest == 0)
 		return;
 	gCapturedPixels = *dest;
+	if (RSP.thread)
+	{
+		SetEvent(RSP.threadMsg[RSPMSG_READPIXELS]);
+		WaitForSingleObject(RSP.threadFinished, INFINITE);
+	}
+}
+
+void CALL get_video_size(long* width, long* height)
+{
+	*width = OGL.width;
+	*height = OGL.height;
+}
+
+void CALL read_video(void** buffer)
+{
+	extern void* gCapturedPixels;
+	gCapturedPixels = *buffer;
 	if (RSP.thread)
 	{
 		SetEvent(RSP.threadMsg[RSPMSG_READPIXELS]);
