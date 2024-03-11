@@ -133,6 +133,12 @@ void RSP_ProcessDList()
 	VI_UpdateSize();
 	OGL_UpdateScale();
 
+	if (OGL.clear_override)
+	{
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+	}
+
 	RSP.PC[0] = *(u32*)&DMEM[0x0FF0];
 	RSP.PCi = 0;
 	RSP.count = 0;

@@ -797,12 +797,6 @@ void gDPFillRectangle( s32 ulx, s32 uly, s32 lrx, s32 lry )
 	if (!OGL.ignoreScissor || !gDP.colorImage.changed)
 		OGL_DrawRect( ulx, uly, lrx, lry, (gDP.otherMode.cycleType == G_CYC_FILL) ? &gDP.fillColor.r : &gDP.blendColor.r );
 
-	if (!gDP.colorImage.changed && OGL.clear_override)
-	{
-		float color[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-		OGL_ClearColorBuffer(color);
-	}
-
 	if (depthBuffer.current) depthBuffer.current->cleared = FALSE;
 	gDP.colorImage.changed = TRUE;
 	gDP.colorImage.height = max( gDP.colorImage.height, lry );
