@@ -75,6 +75,9 @@ struct GLInfo
 	BYTE	combiner;
 
 	BOOL ignoreScissor;
+
+	// Clears the game with black color every frame regardless of what N64 asks
+	BOOL clear_override;
 };
 
 extern GLInfo OGL;

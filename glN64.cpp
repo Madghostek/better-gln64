@@ -22,9 +22,9 @@ HWND		hStatusBar;
 HWND		hToolBar;
 HINSTANCE	hInstance;
 #ifdef _DEBUG
-char		pluginName[] = "better glN64 v1.2 debug";
+char		pluginName[] = "better glN64 v1.2.1 debug";
 #else
-char		pluginName[] = "better glN64 v1.2";
+char		pluginName[] = "better glN64 v1.2.1";
 #endif
 char		*screenDirectory;
 
