@@ -231,23 +231,6 @@ void RSP_ProcessDList()
 
 void RSP_Init()
 {
-	volatile u8 test; //do not optimise out on release!!!
-	u32 testAddress;
-	// Calculate RDRAM size by intentionally causing an access violation
-	__try
-	{
-
-		testAddress = 0x400000; //at least 4mb I guess?
-		while (TRUE)
-		{
-			test = RDRAM[testAddress];
-			testAddress++;
-		}
-	}
-	__except (EXCEPTION_EXECUTE_HANDLER)
-	{
-		RDRAMSize = testAddress;
-	}
 	RSP.DList = 0;
 	RSP.uc_start = RSP.uc_dstart = 0;
 

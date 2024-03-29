@@ -6,6 +6,6 @@ u8 *DMEM;
 u8 *IMEM;
 u64 TMEM[512];
 u8 *RDRAM;
-u32 RDRAMSize = 0x01f610a0; //0x800000 / 4;
+u32 RDRAMSize = 0x800000;
 
 N64Regs REG;
