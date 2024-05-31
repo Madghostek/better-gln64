@@ -85,6 +85,15 @@ DWORD WINAPI RSP_ThreadProc( LPVOID lpParameter )
 					break;
 				case (WAIT_OBJECT_0 + RSPMSG_UPDATESCREEN):
 					VI_UpdateScreen();
+
+					// Copy back buffer to shared fb
+					fbo_mutex.lock();
+					glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+					glBindFramebuffer(GL_DRAW_FRAMEBUFFER, shared_fbo);
+					glBlitFramebuffer(0, 0, OGL.width, OGL.height, 0, 0, OGL.width, OGL.height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+					glBindFramebuffer(GL_FRAMEBUFFER, 0);
+					fbo_mutex.unlock();
+
 					break;
 				case (WAIT_OBJECT_0 + RSPMSG_CLOSE):
 					OGL_Stop();
@@ -105,7 +114,7 @@ DWORD WINAPI RSP_ThreadProc( LPVOID lpParameter )
 					OGL_SaveScreenshot();
 					break;
 				case(WAIT_OBJECT_0 + RSPMSG_READPIXELS):
-					OGL_ReadPixels();
+					break;
 			}
 			SetEvent( RSP.threadFinished );
 		}

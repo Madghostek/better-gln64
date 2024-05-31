@@ -74,6 +74,14 @@ EXPORT void CALL ChangeWindow (void)
 	SetEvent( RSP.threadMsg[RSPMSG_DESTROYTEXTURES] );
 	WaitForSingleObject( RSP.threadFinished, INFINITE );
 
+	if (shared_fbo != UINT_MAX)
+	{
+		printf("[gln] Deleting FBO...\n");
+		glDeleteFramebuffers(1, &shared_fbo);
+		glDeleteTextures(1, &tex_color_buf);
+		shared_fbo = UINT_MAX;
+	}
+
 	if (!OGL.fullscreen)
 	{
 		DEVMODE fullscreenMode;
@@ -131,6 +139,29 @@ EXPORT void CALL ChangeWindow (void)
 		OGL.fullscreen = FALSE;
 		OGL_ResizeWindow();
 	}
+
+
+	printf("Init FBO %d x %d\n", OGL.width, OGL.height);
+
+	glGenFramebuffers(1, &shared_fbo);
+	glBindFramebuffer(GL_FRAMEBUFFER, shared_fbo);
+	glGenTextures(1, &tex_color_buf);
+	glBindTexture(GL_TEXTURE_2D, tex_color_buf);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, OGL.width, OGL.height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, tex_color_buf, 0);
+	glDrawBuffer(GL_COLOR_ATTACHMENT0);
+
+	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+	if (status != GL_FRAMEBUFFER_COMPLETE) {
+		char text[260] = { 0 };
+		sprintf(text, "Error while creating shared framebuffer! Error code: %d", status);
+		MessageBox(hWnd, text, pluginName, MB_ICONERROR | MB_OK);
+	}
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	SetEvent( RSP.threadMsg[RSPMSG_INITTEXTURES] );
 	WaitForSingleObject( RSP.threadFinished, INFINITE );
@@ -362,24 +393,6 @@ EXPORT void CALL ViWidthChanged (void)
 {
 }
 
-//not to confuse with readscreen2 from mupen64plus specs (I think)
-EXPORT void CALL ReadScreen2(void** dest, long* width, long* height)
-{
-	extern void *gCapturedPixels;
-	*width = OGL.width;
-	*height = OGL.height;
-
-	*dest = malloc(OGL.height * OGL.width * 3);
-	if (*dest == 0)
-		return;
-	gCapturedPixels = *dest;
-	if (RSP.thread)
-	{
-		SetEvent(RSP.threadMsg[RSPMSG_READPIXELS]);
-		WaitForSingleObject(RSP.threadFinished, INFINITE);
-	}
-}
-
 void CALL mge_get_video_size(long* width, long* height)
 {
 	*width = OGL.width;
@@ -388,11 +401,16 @@ void CALL mge_get_video_size(long* width, long* height)
 
 void CALL mge_read_video(void** buffer)
 {
-	extern void* gCapturedPixels;
-	gCapturedPixels = *buffer;
-	if (RSP.thread)
+	// This can be called before FBO initialization, so we must check here
+	if (shared_fbo == UINT_MAX)
 	{
-		SetEvent(RSP.threadMsg[RSPMSG_READPIXELS]);
-		WaitForSingleObject(RSP.threadFinished, INFINITE);
+		*buffer = nullptr;
+		return;
 	}
+
+	fbo_mutex.lock();
+	glBindFramebuffer(GL_FRAMEBUFFER, shared_fbo);
+	glReadPixels(0, OGL.heightOffset, OGL.width, OGL.height, GL_BGR, GL_UNSIGNED_BYTE, *buffer);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	fbo_mutex.unlock();
 }

@@ -9,6 +9,14 @@
 
 FrameBufferInfo frameBuffer;
 
+// FBO which contains 
+GLuint shared_fbo = UINT_MAX;
+GLuint tex_color_buf = UINT_MAX;
+GLuint rbo = UINT_MAX;
+
+// Lock for shared FBO r/w
+std::recursive_mutex fbo_mutex;
+
 void FrameBuffer_Init()
 {
 	frameBuffer.current = NULL;
