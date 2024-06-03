@@ -86,13 +86,16 @@ DWORD WINAPI RSP_ThreadProc( LPVOID lpParameter )
 				case (WAIT_OBJECT_0 + RSPMSG_UPDATESCREEN):
 					VI_UpdateScreen();
 
-					// Copy back buffer to shared fb
-					fbo_mutex.lock();
+					// TODO: Maybe disable scissor test?
+
 					glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
-					glBindFramebuffer(GL_DRAW_FRAMEBUFFER, shared_fbo);
-					glBlitFramebuffer(0, 0, OGL.width, OGL.height, 0, 0, OGL.width, OGL.height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
-					glBindFramebuffer(GL_FRAMEBUFFER, 0);
-					fbo_mutex.unlock();
+					glBindBuffer(GL_PIXEL_PACK_BUFFER, shared_pbo);
+					glBufferData(GL_PIXEL_PACK_BUFFER, OGL.width * OGL.height * 3, nullptr, GL_STREAM_READ);
+					glReadPixels(0, 0, OGL.width, OGL.height, GL_RGB, GL_UNSIGNED_BYTE, static_cast<void*>(0));
+					glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
+
+
+					glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 
 					break;
 				case (WAIT_OBJECT_0 + RSPMSG_CLOSE):
