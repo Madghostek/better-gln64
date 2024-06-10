@@ -23,10 +23,9 @@ struct FrameBufferInfo
 };
 
 extern FrameBufferInfo frameBuffer;
-
-extern GLuint shared_pbo;
 extern GLuint shared_fbo;
-extern GLuint shared_tex;
+extern GLuint tex_color_buf;
+extern std::recursive_mutex fbo_mutex;
 
 void FrameBuffer_Init();
 void FrameBuffer_Destroy();

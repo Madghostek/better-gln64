@@ -35,45 +35,6 @@ LONG		windowedExStyle;
 RECT		windowedRect;
 HMENU		windowedMenu;
 
-void init_fbo() {
-	if (shared_pbo != UINT_MAX)
-	{
-		printf("[gln] Deleting buffers...\n");
-
-		glDeleteTextures(1, &shared_tex);
-		glDeleteFramebuffers(1, &shared_fbo);
-		glDeleteBuffers(1, &shared_pbo);
-
-		shared_pbo = UINT_MAX;
-	}
-
-	printf("[gln] Initializing buffers @ %d x %d\n", OGL.width, OGL.height);
-
-	glGenFramebuffers(1, &shared_fbo);
-	glBindFramebuffer(GL_FRAMEBUFFER, shared_fbo);
-
-	glGenTextures(1, &shared_tex);
-	glBindTexture(GL_TEXTURE_2D, shared_tex);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, OGL.width, OGL.height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, shared_tex, 0);
-	glDrawBuffer(GL_COLOR_ATTACHMENT0);
-
-	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-	if (status != GL_FRAMEBUFFER_COMPLETE) {
-		char text[260] = { 0 };
-		sprintf(text, "Framebuffer creation is incomplete. Error code: %d", status);
-		MessageBox(hWnd, text, pluginName, MB_ICONERROR | MB_OK);
-	}
-
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	
-	glGenBuffers(1, &shared_pbo);
-}
-
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD dwReason, LPVOID lpvReserved)
 {
 	hInstance = hinstDLL;
@@ -112,6 +73,14 @@ EXPORT void CALL ChangeWindow (void)
 	// Textures seem to get corrupted when changing video modes (at least on my Radeon), so destroy them
 	SetEvent( RSP.threadMsg[RSPMSG_DESTROYTEXTURES] );
 	WaitForSingleObject( RSP.threadFinished, INFINITE );
+
+	if (shared_fbo != UINT_MAX)
+	{
+		printf("[gln] Deleting FBO...\n");
+		glDeleteFramebuffers(1, &shared_fbo);
+		glDeleteTextures(1, &tex_color_buf);
+		shared_fbo = UINT_MAX;
+	}
 
 	if (!OGL.fullscreen)
 	{
@@ -171,7 +140,28 @@ EXPORT void CALL ChangeWindow (void)
 		OGL_ResizeWindow();
 	}
 
-	init_fbo();
+
+	printf("Init FBO %d x %d\n", OGL.width, OGL.height);
+
+	glGenFramebuffers(1, &shared_fbo);
+	glBindFramebuffer(GL_FRAMEBUFFER, shared_fbo);
+	glGenTextures(1, &tex_color_buf);
+	glBindTexture(GL_TEXTURE_2D, tex_color_buf);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, OGL.width, OGL.height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, tex_color_buf, 0);
+	glDrawBuffer(GL_COLOR_ATTACHMENT0);
+
+	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+	if (status != GL_FRAMEBUFFER_COMPLETE) {
+		char text[260] = { 0 };
+		sprintf(text, "Error while creating shared framebuffer! Error code: %d", status);
+		MessageBox(hWnd, text, pluginName, MB_ICONERROR | MB_OK);
+	}
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	SetEvent( RSP.threadMsg[RSPMSG_INITTEXTURES] );
 	WaitForSingleObject( RSP.threadFinished, INFINITE );
@@ -411,15 +401,16 @@ void CALL mge_get_video_size(long* width, long* height)
 
 void CALL mge_read_video(void** buffer)
 {
-	// This can be called before initialization, so we must check here
-	if (shared_pbo == UINT_MAX)
+	// This can be called before FBO initialization, so we must check here
+	if (shared_fbo == UINT_MAX)
 	{
 		*buffer = nullptr;
 		return;
 	}
 
-	glBindBuffer(GL_PIXEL_PACK_BUFFER, shared_pbo);
-	const auto p = static_cast<const u8*>(glMapBuffer(GL_PIXEL_PACK_BUFFER, GL_READ_ONLY));
-	memcpy(*buffer, p, OGL.width * OGL.height * 3);
-	glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
+	fbo_mutex.lock();
+	glBindFramebuffer(GL_FRAMEBUFFER, shared_fbo);
+	glReadPixels(0, OGL.heightOffset, OGL.width, OGL.height, GL_BGR, GL_UNSIGNED_BYTE, *buffer);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	fbo_mutex.unlock();
 }
