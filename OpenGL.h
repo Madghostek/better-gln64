@@ -87,6 +87,7 @@ struct GLcolor
 	float r, g, b, a;
 };
 
+void OGL_ReadPixels();
 bool OGL_Start();
 void OGL_Stop();
 void OGL_AddTriangle( SPVertex *vertices, int v0, int v1, int v2 );

@@ -263,6 +263,8 @@ EXPORT void CALL ViStatusChanged (void);
 *******************************************************************/ 
 EXPORT void CALL ViWidthChanged (void);
 
+EXPORT void CALL ReadScreen2(void** dest, long* width, long* height);
+
 EXPORT void CALL mge_get_video_size(long* width, long* height);
 EXPORT void CALL mge_read_video(void** buffer);
 

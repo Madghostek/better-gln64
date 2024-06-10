@@ -12,9 +12,23 @@
 #include "Textures.h"
 #include "Combiner.h"
 #include "VI.h"
-#include <mutex>
 
 GLInfo OGL;
+
+void *gCapturedPixels; //pointer to buffer to fill
+
+void OGL_ReadPixels()
+{
+	GLint oldMode;
+	glGetIntegerv(GL_READ_BUFFER, &oldMode);
+	//glReadBuffer(GL_FRONT);
+
+	glReadBuffer(GL_BACK);
+	glReadPixels(0, OGL.heightOffset, OGL.width, OGL.height,
+		GL_BGR, GL_UNSIGNED_BYTE, gCapturedPixels);
+	if (GLenum err = glGetError()) printf("%s\n", gluErrorString(err));
+	glReadBuffer(oldMode); //restore old read buffer
+}
 
 void GLAPIENTRY GLErrorHandler(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
 {
