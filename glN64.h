@@ -20,6 +20,6 @@ extern char *screenDirectory;
 #define DEBUG_SUFFIX ""
 #endif
 
-#define PLUGIN_NAME "better glN64 v1.2.1" DEBUG_SUFFIX
+#define PLUGIN_NAME "better glN64 v1.3" DEBUG_SUFFIX
 
 #endif
