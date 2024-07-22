@@ -139,7 +139,7 @@ EXPORT void CALL CloseDLL (void)
 
 EXPORT void CALL DllAbout ( HWND hParent )
 {
-	MessageBox( hParent, "Fork of glN64 by Madghostek, originally by Orkin\nRelease v1.1\nGithub: https://github.com/Madghostek/better-gln64", PLUGIN_NAME, MB_OK | MB_ICONINFORMATION );
+	MessageBox( hParent, "Fork of glN64 by Madghostek and Aurumaker72, originally by Orkin\nGithub: https://github.com/Madghostek/better-gln64", PLUGIN_NAME, MB_OK | MB_ICONINFORMATION );
 }
 
 EXPORT void CALL DllConfig ( HWND hParent )
