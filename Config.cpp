@@ -186,6 +186,9 @@ void Config_SaveConfig()
 
 	value = OGL.ignoreScissor ? 1 : 0;
 	RegSetValueEx(hKey, "Ignore Scissor", 0, REG_DWORD, (BYTE*)&value, 4);
+	
+	value = OGL.clear_override ? 1 : 0;
+	RegSetValueEx(hKey, "Clear Override", 0, REG_DWORD, (BYTE*)&value, 4);
 
 	value = OGL.combiner;
 	RegSetValueEx(hKey, "Combiner", 0, REG_DWORD, (BYTE*)&value, 4);
