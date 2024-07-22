@@ -11,9 +11,15 @@ extern HWND			hStatusBar;
 extern HWND			hToolBar;
 extern HINSTANCE	hInstance;
 
-extern char			pluginName[];
-
 extern void (*CheckInterrupts)( void );
 extern char *screenDirectory;
+
+#ifdef _DEBUG
+#define DEBUG_SUFFIX " (Debug)"
+#else
+#define DEBUG_SUFFIX ""
+#endif
+
+#define PLUGIN_NAME "better glN64 v1.2.1" DEBUG_SUFFIX
 
 #endif

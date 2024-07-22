@@ -117,7 +117,7 @@ DWORD WINAPI RSP_ThreadProc( LPVOID lpParameter )
 
 		sprintf( exception, "Win32 exception 0x%08X occured in glN64", GetExceptionCode() );
 
-		MessageBox( NULL, exception, pluginName, MB_OK | MB_ICONERROR );
+		MessageBox( NULL, exception, PLUGIN_NAME, MB_OK | MB_ICONERROR );
 
 		GBI_Destroy();
 		DepthBuffer_Destroy();

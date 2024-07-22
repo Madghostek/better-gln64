@@ -21,11 +21,7 @@ HWND		hStatusBar;
 //HWND		hFullscreen;
 HWND		hToolBar;
 HINSTANCE	hInstance;
-#ifdef _DEBUG
-char		pluginName[] = "better glN64 v1.2.1 debug";
-#else
-char		pluginName[] = "better glN64 v1.2.1";
-#endif
+
 char		*screenDirectory;
 
 void (*CheckInterrupts)( void );
@@ -87,7 +83,7 @@ EXPORT void CALL ChangeWindow (void)
 
 		if (ChangeDisplaySettings( &fullscreenMode, CDS_FULLSCREEN ) != DISP_CHANGE_SUCCESSFUL)
 		{
-			MessageBox( NULL, "Failed to change display mode", pluginName, MB_ICONERROR | MB_OK );
+			MessageBox( NULL, "Failed to change display mode", PLUGIN_NAME, MB_ICONERROR | MB_OK );
 			return;
 		}
 
@@ -143,7 +139,7 @@ EXPORT void CALL CloseDLL (void)
 
 EXPORT void CALL DllAbout ( HWND hParent )
 {
-	MessageBox( hParent, "Fork of glN64 by Madghostek, originally by Orkin\nRelease v1.1\nGithub: https://github.com/Madghostek/better-gln64", pluginName, MB_OK | MB_ICONINFORMATION );
+	MessageBox( hParent, "Fork of glN64 by Madghostek, originally by Orkin\nRelease v1.1\nGithub: https://github.com/Madghostek/better-gln64", PLUGIN_NAME, MB_OK | MB_ICONINFORMATION );
 }
 
 EXPORT void CALL DllConfig ( HWND hParent )
@@ -163,7 +159,7 @@ EXPORT void CALL GetDllInfo ( PLUGIN_INFO * PluginInfo )
 {
 	PluginInfo->Version = 0x103;
 	PluginInfo->Type = PLUGIN_TYPE_GFX;
-	strcpy( PluginInfo->Name, pluginName );
+	strcpy( PluginInfo->Name, PLUGIN_NAME );
 	PluginInfo->NormalMemory = FALSE;
 	PluginInfo->MemoryBswaped = TRUE;
 }

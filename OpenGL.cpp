@@ -208,33 +208,33 @@ bool OGL_Start()
 
 	if ((OGL.hDC = GetDC( hWnd )) == NULL)
 	{
-		MessageBox( hWnd, "Error while getting a device context!", pluginName, MB_ICONERROR | MB_OK );
+		MessageBox( hWnd, "Error while getting a device context!", PLUGIN_NAME, MB_ICONERROR | MB_OK );
 		return FALSE;
 	}
 
 	if ((pixelFormat = ChoosePixelFormat( OGL.hDC, &pfd )) == 0)
 	{
-		MessageBox( hWnd, "Unable to find a suitable pixel format!", pluginName, MB_ICONERROR | MB_OK );
+		MessageBox( hWnd, "Unable to find a suitable pixel format!", PLUGIN_NAME, MB_ICONERROR | MB_OK );
 		OGL_Stop();
 		return FALSE;
 	}
 
 	if ((SetPixelFormat( OGL.hDC, pixelFormat, &pfd )) == FALSE)
 	{
-		MessageBox( hWnd, "Error while setting pixel format!", pluginName, MB_ICONERROR | MB_OK );
+		MessageBox( hWnd, "Error while setting pixel format!", PLUGIN_NAME, MB_ICONERROR | MB_OK );
 		OGL_Stop();
 		return FALSE;
 	}
 	if ((OGL.hRC = wglCreateContext( OGL.hDC )) == NULL)
 	{
-		MessageBox( hWnd, "Error while creating OpenGL context!", pluginName, MB_ICONERROR | MB_OK );
+		MessageBox( hWnd, "Error while creating OpenGL context!", PLUGIN_NAME, MB_ICONERROR | MB_OK );
 		OGL_Stop();
 		return FALSE;
 	}
 
 	if ((wglMakeCurrent( OGL.hDC, OGL.hRC )) == FALSE)
 	{
-		MessageBox( hWnd, "Error while making OpenGL context current!", pluginName, MB_ICONERROR | MB_OK );
+		MessageBox( hWnd, "Error while making OpenGL context current!", PLUGIN_NAME, MB_ICONERROR | MB_OK );
 		OGL_Stop();
 		return FALSE;
 	}
