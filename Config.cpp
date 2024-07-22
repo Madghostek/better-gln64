@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <windowsx.h>
 #include <stdio.h>
 #include "Config.h"
 #include "glN64.h"
@@ -122,6 +123,9 @@ void Config_LoadConfig()
 		RegQueryValueEx(hKey, "Clear Override", 0, NULL, (BYTE*)&value, &size);
 		OGL.clear_override = value ? TRUE : FALSE;
 
+		RegQueryValueEx(hKey, "Combiner", 0, NULL, (BYTE*)&value, &size);
+		OGL.combiner = value;
+
 		RegCloseKey( hKey );
 	}
 	else
@@ -183,6 +187,9 @@ void Config_SaveConfig()
 	value = OGL.ignoreScissor ? 1 : 0;
 	RegSetValueEx(hKey, "Ignore Scissor", 0, REG_DWORD, (BYTE*)&value, 4);
 
+	value = OGL.combiner;
+	RegSetValueEx(hKey, "Combiner", 0, REG_DWORD, (BYTE*)&value, 4);
+
 	RegCloseKey( hKey );
 }
 
@@ -206,6 +213,8 @@ void Config_ApplyDlgConfig( HWND hWndDlg )
 	OGL.ignoreScissor = (SendDlgItemMessage(hWndDlg, IDC_SCISSOR, BM_GETCHECK, NULL, NULL) == BST_CHECKED);
 	OGL.clear_override = (SendDlgItemMessage(hWndDlg, IDC_CLEAR, BM_GETCHECK, NULL, NULL) == BST_CHECKED);
 
+	OGL.combiner = ComboBox_GetCurSel(GetDlgItem(hWndDlg, IDC_COMBINER));
+	
 	OGL.fullscreenBits = fullscreen.bitDepth[SendDlgItemMessage( hWndDlg, IDC_FULLSCREENBITDEPTH, CB_GETCURSEL, 0, 0 )];
 	i = SendDlgItemMessage( hWndDlg, IDC_FULLSCREENRES, CB_GETCURSEL, 0, 0 );
 	OGL.fullscreenWidth = fullscreen.resolution[i].width;
@@ -406,6 +415,13 @@ BOOL CALLBACK ConfigDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
 			SendDlgItemMessage( hWndDlg, IDC_TEXTUREBPP, CB_SETCURSEL, OGL.textureBitDepth, 0 );
 			SendDlgItemMessage(hWndDlg, IDC_SCISSOR, BM_SETCHECK, OGL.ignoreScissor ? (LPARAM)BST_CHECKED : (LPARAM)BST_UNCHECKED, NULL);
 			SendDlgItemMessage(hWndDlg, IDC_CLEAR, BM_SETCHECK, OGL.clear_override ? (LPARAM)BST_CHECKED : (LPARAM)BST_UNCHECKED, NULL);
+
+			ComboBox_AddString(GetDlgItem(hWndDlg, IDC_COMBINER), "Autodetect");
+			ComboBox_AddString(GetDlgItem(hWndDlg, IDC_COMBINER), "TEXTURE_ENV");
+			ComboBox_AddString(GetDlgItem(hWndDlg, IDC_COMBINER), "TEXTURE_ENV_COMBINE");
+			ComboBox_AddString(GetDlgItem(hWndDlg, IDC_COMBINER), "NV_REGISTER_COMBINERS");
+			ComboBox_SetCurSel(GetDlgItem(hWndDlg, IDC_COMBINER), OGL.combiner);
+		
 			// Enable/disable fog
 			SendDlgItemMessage( hWndDlg, IDC_FOG, BM_SETCHECK, OGL.fog ? (LPARAM)BST_CHECKED : (LPARAM)BST_UNCHECKED, NULL );
 			SendDlgItemMessage( hWndDlg, IDC_FRAMEBUFFER, BM_SETCHECK, OGL.frameBufferTextures ? (LPARAM)BST_CHECKED : (LPARAM)BST_UNCHECKED, NULL );

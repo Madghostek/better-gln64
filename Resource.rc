@@ -12,7 +12,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Englisch (USA) resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
@@ -126,6 +126,8 @@ BEGIN
     CONTROL         "",IDC_FSCALE,"msctls_trackbar32",TBS_AUTOTICKS | WS_TABSTOP,81,175,79,13
     LTEXT           "Filter Scale:",-1,15,179,40,8
     CONTROL         "Clear every frame",IDC_CLEAR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,108,74,10
+    LTEXT           "Combiner:",IDC_STATIC2,17,120,36,12,SS_CENTERIMAGE
+    COMBOBOX        IDC_COMBINER,60,120,107,75,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
 END
 
 IDD_MICROCODEDLG DIALOGEX 0, 0, 384, 129
@@ -207,6 +209,15 @@ BEGIN
     IDC_TEXTUREFILTER, 0x403, 29, 0
 0x3233, 0x622d, 0x7469, 0x6f20, 0x6c6e, 0x2079, 0x6228, 0x7365, 0x2074, 
 0x6f66, 0x2072, 0x7832, 0x4153, 0x2949, "\000" 
+    IDC_TEXTUREFILTER2, 0x403, 21, 0
+0x3631, 0x622d, 0x7469, 0x6f20, 0x6c6e, 0x2079, 0x6628, 0x7361, 0x6574, 
+0x2972, "\000" 
+    IDC_TEXTUREFILTER2, 0x403, 27, 0
+0x3631, 0x622d, 0x7469, 0x6120, 0x646e, 0x3320, 0x2d32, 0x6962, 0x2074, 
+0x6e28, 0x726f, 0x616d, 0x296c, "\000" 
+    IDC_TEXTUREFILTER2, 0x403, 29, 0
+0x3233, 0x622d, 0x7469, 0x6f20, 0x6c6e, 0x2079, 0x6228, 0x7365, 0x2074, 
+0x6f66, 0x2072, 0x7832, 0x4153, 0x2949, "\000" 
     0
 END
 
@@ -221,7 +232,7 @@ BEGIN
     0
 END
 
-#endif    // Englisch (USA) resources
+#endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

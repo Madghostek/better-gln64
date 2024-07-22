@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Von Microsoft Visual C++ generierte Includedatei.
-// Verwendet durch Resource.rc
+// Microsoft Visual C++ generated include file.
+// Used by Resource.rc
 //
 #define SW_HIDE                         0
 #define HIDE_WINDOW                     0
@@ -1330,9 +1330,9 @@
 #define IDC_TEXTUREFILTER               1061
 #define rad6                            0x0425
 #define rad7                            0x0426
+#define IDC_TEXTUREFILTER2              1062
 #define rad8                            0x0427
 #define IDC_COMBO1                      1064
-#define IDC_COMBINER                    1064
 #define IDC_TEXTUREBPP                  1064
 #define rad9                            0x0428
 #define rad10                           0x0429
@@ -1484,6 +1484,8 @@
 #define scr8                            0x0497
 #define ctl1                            0x04A0
 #define IDC_STATIC                      1234
+#define IDC_STATIC2                     1235
+#define IDC_COMBINER                    1236
 #define ctlLast                         0x04ff
 #define _WIN32_WINNT_WIN2K              0x0500
 #define _WIN32_IE_IE50                  0x0500
@@ -1665,8 +1667,8 @@
 #define LVS_TYPESTYLEMASK               0xfc00
 #define SPVERSION_MASK                  0x0000FF00
 #define HTERROR                         -2
-#define PWR_FAIL                        -1
 #define UNICODE_NOCHAR                  0xFFFF
+#define PWR_FAIL                        -1
 #define HTTRANSPARENT                   -1
 
 // Next default values for new objects

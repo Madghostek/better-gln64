@@ -6,10 +6,10 @@
 #include "gDP.h"
 #include "Types.h"
 
-#define TEXTURE_ENV					0
-#define TEXTURE_ENV_COMBINE			1
-#define NV_REGISTER_COMBINERS		2
-#define NV_TEXTURE_ENV_COMBINE4		3
+#define TEXTURE_ENV					1
+#define TEXTURE_ENV_COMBINE			2
+#define NV_REGISTER_COMBINERS		3
+#define NV_TEXTURE_ENV_COMBINE4		4
 
 /*
  * G_SETCOMBINE: color combine modes

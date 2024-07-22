@@ -72,7 +72,8 @@ struct GLInfo
 	GLubyte	stipplePattern[32][8][128];
 	BYTE	lastStipple;
 
-	BYTE	combiner;
+	// The combiner compiler override. 0 for autodetect.
+	DWORD	combiner;
 
 	BOOL ignoreScissor;
 

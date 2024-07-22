@@ -18,7 +18,11 @@ void Combiner_Init()
 	else
 		combiner.compiler = TEXTURE_ENV;
 
-
+	if (OGL.combiner != 0)
+	{
+		combiner.compiler = OGL.combiner;	
+	}
+	
 	switch (combiner.compiler)
 	{
 		case TEXTURE_ENV:
