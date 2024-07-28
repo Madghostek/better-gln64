@@ -1,228 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug 1964|Win32">
-      <Configuration>Debug 1964</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-  </ItemGroup>
-  <PropertyGroup Label="Globals">
-    <ProjectGuid>{37D31D7F-C4E7-45B0-AEF6-D6824A243CF7}</ProjectGuid>
-    <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug 1964|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug 1964|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <PropertyGroup Label="UserMacros" />
-  <PropertyGroup>
-    <_ProjectFileVersion>16.0.30804.86</_ProjectFileVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>Debug\</OutDir>
-    <IntDir>Debug\</IntDir>
-    <LinkIncremental>true</LinkIncremental>
-    <TargetName>glN64_debug</TargetName>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>Release\</OutDir>
-    <IntDir>Release\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug 1964|Win32'">
-    <OutDir>Debug 1964\</OutDir>
-    <IntDir>Debug 1964\</IntDir>
-    <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;GLEW_STATIC</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PrecompiledHeader />
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <AdditionalIncludeDirectories>$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <OutputFile>Debug\glN64_debug.dll</OutputFile>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(OutDir)New glNintendo64().pdb</ProgramDatabaseFile>
-      <SubSystem>Windows</SubSystem>
-      <ImportLibrary>$(OutDir)New glNintendo64().lib</ImportLibrary>
-      <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>$(ProjectDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;winmm.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <Optimization>Full</Optimization>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <OmitFramePointers>true</OmitFramePointers>
-      <PreprocessorDefinitions>WIN32;GLEW_STATIC</PreprocessorDefinitions>
-      <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PrecompiledHeader />
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <OutputFile>Release\glN64.dll</OutputFile>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
-      <OptimizeReferences>true</OptimizeReferences>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <ImportLibrary>$(OutDir)New glNintendo64().lib</ImportLibrary>
-      <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>$(ProjectDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;winmm.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug 1964|Win32'">
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;GLEW_STATICGLEW_BUILD</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PrecompiledHeader />
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <AdditionalIncludeDirectories>$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;winmm.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>c:\game files\emulators\nintendo 64\plugin\glN64.dll</OutputFile>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(OutDir)New glNintendo64().pdb</ProgramDatabaseFile>
-      <SubSystem>Windows</SubSystem>
-      <ImportLibrary>$(OutDir)New glNintendo64().lib</ImportLibrary>
-      <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>$(ProjectDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="2xSAI.cpp" />
-    <ClCompile Include="Combiner.cpp" />
-    <ClCompile Include="Config.cpp" />
-    <ClCompile Include="CRC.cpp" />
-    <ClCompile Include="Debug.cpp" />
-    <ClCompile Include="DepthBuffer.cpp" />
-    <ClCompile Include="F3D.cpp" />
-    <ClCompile Include="F3DDKR.cpp" />
-    <ClCompile Include="F3DEX.cpp" />
-    <ClCompile Include="F3DEX2.cpp" />
-    <ClCompile Include="F3DPD.cpp" />
-    <ClCompile Include="F3DWRUS.cpp" />
-    <ClCompile Include="FrameBuffer.cpp" />
-    <ClCompile Include="GBI.cpp" />
-    <ClCompile Include="gDP.cpp" />
-    <ClCompile Include="glN64.cpp" />
-    <ClCompile Include="gSP.cpp" />
-    <ClCompile Include="L3D.cpp" />
-    <ClCompile Include="L3DEX.cpp" />
-    <ClCompile Include="L3DEX2.cpp" />
-    <ClCompile Include="N64.cpp" />
-    <ClCompile Include="NV_register_combiners.cpp" />
-    <ClCompile Include="OpenGL.cpp" />
-    <ClCompile Include="RDP.CPP" />
-    <ClCompile Include="RSP.cpp" />
-    <ClCompile Include="S2DEX.cpp" />
-    <ClCompile Include="S2DEX2.cpp" />
-    <ClCompile Include="Textures.cpp" />
-    <ClCompile Include="texture_env.cpp" />
-    <ClCompile Include="texture_env_combine.cpp" />
-    <ClCompile Include="VI.cpp" />
-    <ClCompile Include="xBRZ\xbrz.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="2xSAI.h" />
-    <ClInclude Include="3DMath.h" />
-    <ClInclude Include="Combiner.h" />
-    <ClInclude Include="Config.h" />
-    <ClInclude Include="convert.h" />
-    <ClInclude Include="CRC.h" />
-    <ClInclude Include="Debug.h" />
-    <ClInclude Include="DepthBuffer.h" />
-    <ClInclude Include="F3D.h" />
-    <ClInclude Include="F3DDKR.h" />
-    <ClInclude Include="F3DEX.h" />
-    <ClInclude Include="F3DEX2.h" />
-    <ClInclude Include="F3DPD.h" />
-    <ClInclude Include="F3DWRUS.h" />
-    <ClInclude Include="FrameBuffer.h" />
-    <ClInclude Include="GBI.h" />
-    <ClInclude Include="gDP.h" />
-    <ClInclude Include="glATI.h" />
-    <ClInclude Include="glext.h" />
-    <ClInclude Include="glN64.h" />
-    <ClInclude Include="gSP.h" />
-    <ClInclude Include="L3D.h" />
-    <ClInclude Include="L3DEX.h" />
-    <ClInclude Include="L3DEX2.h" />
-    <ClInclude Include="N64.h" />
-    <ClInclude Include="NV_register_combiners.h" />
-    <ClInclude Include="OpenGL.h" />
-    <ClInclude Include="RDP.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="RSP.h" />
-    <ClInclude Include="S2DEX.h" />
-    <ClInclude Include="S2DEX2.h" />
-    <ClInclude Include="Textures.h" />
-    <ClInclude Include="texture_env.h" />
-    <ClInclude Include="texture_env_combine.h" />
-    <ClInclude Include="Types.h" />
-    <ClInclude Include="VI.h" />
-    <ClInclude Include="wglext.h" />
-    <ClInclude Include="xBRZ\xbrz.h" />
-    <ClInclude Include="xBRZ\xbrz_config.h" />
-    <ClInclude Include="xBRZ\xbrz_tools.h" />
-    <ClInclude Include="Zilmar GFX 1.3.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Resource.rc" />
-  </ItemGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+    <ItemGroup Label="ProjectConfigurations">
+        <ProjectConfiguration Include="Debug 1964|Win32">
+            <Configuration>Debug 1964</Configuration>
+            <Platform>Win32</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Debug|Win32">
+            <Configuration>Debug</Configuration>
+            <Platform>Win32</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|Win32">
+            <Configuration>Release</Configuration>
+            <Platform>Win32</Platform>
+        </ProjectConfiguration>
+    </ItemGroup>
+    <PropertyGroup Label="Globals">
+        <ProjectGuid>{37D31D7F-C4E7-45B0-AEF6-D6824A243CF7}</ProjectGuid>
+        <Keyword>Win32Proj</Keyword>
+        <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug 1964|Win32'" Label="Configuration">
+        <ConfigurationType>DynamicLibrary</ConfigurationType>
+        <PlatformToolset>v143</PlatformToolset>
+        <CharacterSet>MultiByte</CharacterSet>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+        <ConfigurationType>DynamicLibrary</ConfigurationType>
+        <PlatformToolset>v143</PlatformToolset>
+        <CharacterSet>MultiByte</CharacterSet>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+        <ConfigurationType>DynamicLibrary</ConfigurationType>
+        <PlatformToolset>v143</PlatformToolset>
+        <CharacterSet>MultiByte</CharacterSet>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+    <ImportGroup Label="ExtensionSettings">
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug 1964|Win32'" Label="PropertySheets">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <PropertyGroup Label="UserMacros"/>
+    <PropertyGroup>
+        <_ProjectFileVersion>16.0.30804.86</_ProjectFileVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+        <OutDir>Debug\</OutDir>
+        <IntDir>Debug\</IntDir>
+        <LinkIncremental>true</LinkIncremental>
+        <TargetName>glN64_debug</TargetName>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+        <OutDir>Release\</OutDir>
+        <IntDir>Release\</IntDir>
+        <LinkIncremental>false</LinkIncremental>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug 1964|Win32'">
+        <OutDir>Debug 1964\</OutDir>
+        <IntDir>Debug 1964\</IntDir>
+        <LinkIncremental>true</LinkIncremental>
+    </PropertyGroup>
+    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+        <ClCompile>
+            <Optimization>Disabled</Optimization>
+            <PreprocessorDefinitions>WIN32;GLEW_STATIC</PreprocessorDefinitions>
+            <MinimalRebuild>true</MinimalRebuild>
+            <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+            <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+            <PrecompiledHeader/>
+            <WarningLevel>Level3</WarningLevel>
+            <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+            <AdditionalIncludeDirectories>$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+        </ClCompile>
+        <Link>
+            <OutputFile>Debug\glN64_debug.dll</OutputFile>
+            <GenerateDebugInformation>true</GenerateDebugInformation>
+            <ProgramDatabaseFile>$(OutDir)New glNintendo64().pdb</ProgramDatabaseFile>
+            <SubSystem>Windows</SubSystem>
+            <ImportLibrary>$(OutDir)New glNintendo64().lib</ImportLibrary>
+            <TargetMachine>MachineX86</TargetMachine>
+            <AdditionalLibraryDirectories>$(ProjectDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+            <AdditionalDependencies>opengl32.lib;glu32.lib;winmm.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+        </Link>
+    </ItemDefinitionGroup>
+    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+        <ClCompile>
+            <Optimization>Full</Optimization>
+            <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+            <IntrinsicFunctions>true</IntrinsicFunctions>
+            <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+            <OmitFramePointers>true</OmitFramePointers>
+            <PreprocessorDefinitions>WIN32;GLEW_STATIC</PreprocessorDefinitions>
+            <StringPooling>true</StringPooling>
+            <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+            <FunctionLevelLinking>true</FunctionLevelLinking>
+            <PrecompiledHeader/>
+            <WarningLevel>Level3</WarningLevel>
+            <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+            <AdditionalIncludeDirectories>$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+        </ClCompile>
+        <Link>
+            <OutputFile>Release\glN64.dll</OutputFile>
+            <GenerateDebugInformation>true</GenerateDebugInformation>
+            <SubSystem>Windows</SubSystem>
+            <OptimizeReferences>true</OptimizeReferences>
+            <EnableCOMDATFolding>true</EnableCOMDATFolding>
+            <ImportLibrary>$(OutDir)New glNintendo64().lib</ImportLibrary>
+            <TargetMachine>MachineX86</TargetMachine>
+            <AdditionalLibraryDirectories>$(ProjectDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+            <AdditionalDependencies>opengl32.lib;glu32.lib;winmm.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+        </Link>
+    </ItemDefinitionGroup>
+    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug 1964|Win32'">
+        <ClCompile>
+            <Optimization>Disabled</Optimization>
+            <PreprocessorDefinitions>WIN32;GLEW_STATICGLEW_BUILD</PreprocessorDefinitions>
+            <MinimalRebuild>true</MinimalRebuild>
+            <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+            <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+            <PrecompiledHeader/>
+            <WarningLevel>Level3</WarningLevel>
+            <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+            <AdditionalIncludeDirectories>$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+        </ClCompile>
+        <Link>
+            <AdditionalDependencies>opengl32.lib;glu32.lib;winmm.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+            <OutputFile>c:\game files\emulators\nintendo 64\plugin\glN64.dll</OutputFile>
+            <GenerateDebugInformation>true</GenerateDebugInformation>
+            <ProgramDatabaseFile>$(OutDir)New glNintendo64().pdb</ProgramDatabaseFile>
+            <SubSystem>Windows</SubSystem>
+            <ImportLibrary>$(OutDir)New glNintendo64().lib</ImportLibrary>
+            <TargetMachine>MachineX86</TargetMachine>
+            <AdditionalLibraryDirectories>$(ProjectDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+        </Link>
+    </ItemDefinitionGroup>
+    <ItemGroup>
+        <ClCompile Include="2xSAI.cpp"/>
+        <ClCompile Include="Combiner.cpp"/>
+        <ClCompile Include="Config.cpp"/>
+        <ClCompile Include="CRC.cpp"/>
+        <ClCompile Include="Debug.cpp"/>
+        <ClCompile Include="DepthBuffer.cpp"/>
+        <ClCompile Include="F3D.cpp"/>
+        <ClCompile Include="F3DDKR.cpp"/>
+        <ClCompile Include="F3DEX.cpp"/>
+        <ClCompile Include="F3DEX2.cpp"/>
+        <ClCompile Include="F3DPD.cpp"/>
+        <ClCompile Include="F3DWRUS.cpp"/>
+        <ClCompile Include="FrameBuffer.cpp"/>
+        <ClCompile Include="GBI.cpp"/>
+        <ClCompile Include="gDP.cpp"/>
+        <ClCompile Include="glN64.cpp"/>
+        <ClCompile Include="gSP.cpp"/>
+        <ClCompile Include="L3D.cpp"/>
+        <ClCompile Include="L3DEX.cpp"/>
+        <ClCompile Include="L3DEX2.cpp"/>
+        <ClCompile Include="N64.cpp"/>
+        <ClCompile Include="NV_register_combiners.cpp"/>
+        <ClCompile Include="OpenGL.cpp"/>
+        <ClCompile Include="RDP.CPP"/>
+        <ClCompile Include="RSP.cpp"/>
+        <ClCompile Include="S2DEX.cpp"/>
+        <ClCompile Include="S2DEX2.cpp"/>
+        <ClCompile Include="Textures.cpp"/>
+        <ClCompile Include="texture_env.cpp"/>
+        <ClCompile Include="texture_env_combine.cpp"/>
+        <ClCompile Include="VI.cpp"/>
+        <ClCompile Include="xBRZ\xbrz.cpp"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ClInclude Include="2xSAI.h"/>
+        <ClInclude Include="3DMath.h"/>
+        <ClInclude Include="Combiner.h"/>
+        <ClInclude Include="Config.h"/>
+        <ClInclude Include="convert.h"/>
+        <ClInclude Include="CRC.h"/>
+        <ClInclude Include="Debug.h"/>
+        <ClInclude Include="DepthBuffer.h"/>
+        <ClInclude Include="F3D.h"/>
+        <ClInclude Include="F3DDKR.h"/>
+        <ClInclude Include="F3DEX.h"/>
+        <ClInclude Include="F3DEX2.h"/>
+        <ClInclude Include="F3DPD.h"/>
+        <ClInclude Include="F3DWRUS.h"/>
+        <ClInclude Include="FrameBuffer.h"/>
+        <ClInclude Include="GBI.h"/>
+        <ClInclude Include="gDP.h"/>
+        <ClInclude Include="glATI.h"/>
+        <ClInclude Include="glext.h"/>
+        <ClInclude Include="glN64.h"/>
+        <ClInclude Include="gSP.h"/>
+        <ClInclude Include="L3D.h"/>
+        <ClInclude Include="L3DEX.h"/>
+        <ClInclude Include="L3DEX2.h"/>
+        <ClInclude Include="N64.h"/>
+        <ClInclude Include="NV_register_combiners.h"/>
+        <ClInclude Include="OpenGL.h"/>
+        <ClInclude Include="RDP.h"/>
+        <ClInclude Include="resource.h"/>
+        <ClInclude Include="RSP.h"/>
+        <ClInclude Include="S2DEX.h"/>
+        <ClInclude Include="S2DEX2.h"/>
+        <ClInclude Include="Textures.h"/>
+        <ClInclude Include="texture_env.h"/>
+        <ClInclude Include="texture_env_combine.h"/>
+        <ClInclude Include="Types.h"/>
+        <ClInclude Include="VI.h"/>
+        <ClInclude Include="wglext.h"/>
+        <ClInclude Include="xBRZ\xbrz.h"/>
+        <ClInclude Include="xBRZ\xbrz_config.h"/>
+        <ClInclude Include="xBRZ\xbrz_tools.h"/>
+        <ClInclude Include="Zilmar GFX 1.3.h"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ResourceCompile Include="Resource.rc"/>
+    </ItemGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+    <ImportGroup Label="ExtensionTargets">
+    </ImportGroup>
 </Project>

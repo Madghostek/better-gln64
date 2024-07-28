@@ -16,20 +16,20 @@
 #define F3DWRUS	    10
 #define NONE		11
 
-static const char *MicrocodeTypes[] =
+static const char* MicrocodeTypes[] =
 {
-	"Fast3D", 
-	"F3DEX", 
-	"F3DEX2", 
-	"Line3D",
-	"L3DEX",
-	"L3DEX2",
-	"S2DEX",
-	"S2DEX2",
-	"Perfect Dark",
-	"DKR/JFG",
-	"Waverace US",
-	"None"
+    "Fast3D",
+    "F3DEX",
+    "F3DEX2",
+    "Line3D",
+    "L3DEX",
+    "L3DEX2",
+    "S2DEX",
+    "S2DEX2",
+    "Perfect Dark",
+    "DKR/JFG",
+    "Waverace US",
+    "None"
 };
 
 static const int numMicrocodeTypes = 11;
@@ -93,7 +93,7 @@ static const int numMicrocodeTypes = 11;
 #define G_TEXTURE_GEN_LINEAR	0x00080000
 #define G_LOD					0x00100000
 
-#define G_MV_MMTX		2	
+#define G_MV_MMTX		2
 #define G_MV_PMTX		6
 #define G_MV_LIGHT		10
 #define G_MV_POINT		12
@@ -648,94 +648,96 @@ extern u32 G_RDPHALF_0;
 #define G_DL_PUSH		0x00
 #define G_DL_NOPUSH		0x01
 
-typedef struct
+using Vertex = struct
 {
-	s16 y;
-	s16 x;
+    s16 y;
+    s16 x;
 
-	u16 flag;
-	s16 z;
+    u16 flag;
+    s16 z;
 
-	s16 t;
-	s16 s;
+    s16 t;
+    s16 s;
 
-	union {
-		struct
-		{
-			u8 a;
-			u8 b;
-			u8 g;
-			u8 r;
-		} color;
-		struct
-		{
-			s8 a;
-			s8 z;	// b
-			s8 y;	//g
-			s8 x;	//r
-		} normal;
-	};
-} Vertex;
+    union
+    {
+        struct
+        {
+            u8 a;
+            u8 b;
+            u8 g;
+            u8 r;
+        } color;
 
-typedef struct 
+        struct
+        {
+            s8 a;
+            s8 z; // b
+            s8 y; //g
+            s8 x; //r
+        } normal;
+    };
+};
+
+using PDVertex = struct
 {
-	s16 y, x;
-	u16	ci;
-	s16 z;
-	s16 t, s;
-} PDVertex;
+    s16 y, x;
+    u16 ci;
+    s16 z;
+    s16 t, s;
+};
 
-typedef struct
+using DKRTriangle = struct
 {
-	u8		v2, v1, v0, flag;
-	s16		t0, s0;
-	s16		t1, s1;
-	s16		t2, s2;
-} DKRTriangle;
+    u8 v2, v1, v0, flag;
+    s16 t0, s0;
+    s16 t1, s1;
+    s16 t2, s2;
+};
 
 struct Light
 {
-	u8 pad0, b, g, r;
-	u8 pad1, b2, g2, r2;
-	s8 pad2, z, y, x;
+    u8 pad0, b, g, r;
+    u8 pad1, b2, g2, r2;
+    s8 pad2, z, y, x;
 };
 
 // GBI commands
-typedef void (*GBIFunc)( u32 w0, u32 w1 );
+using GBIFunc = void(*)(u32 w0, u32 w1);
 //extern GBIFunc GBICmd[256];
 
 struct SpecialMicrocodeInfo
 {
-	u32 type;
-	u32 NoN;
-	u32 crc;
-	char *text;
+    u32 type;
+    u32 NoN;
+    u32 crc;
+    char* text;
 };
 
 struct MicrocodeInfo
 {
-	u32 address, dataAddress;
-	u16 dataSize;
-	u32 type;
-	u32 NoN;
-	u32 crc;
-	u32 *text;
+    u32 address, dataAddress;
+    u16 dataSize;
+    u32 type;
+    u32 NoN;
+    u32 crc;
+    u32* text;
 
-	MicrocodeInfo *higher, *lower;
+    MicrocodeInfo *higher, *lower;
 };
 
 struct GBIInfo
 {
-	GBIFunc cmd[256];
+    GBIFunc cmd[256];
 
-	u32 PCStackSize, numMicrocodes;
-	MicrocodeInfo *current, *top, *bottom;
+    u32 PCStackSize, numMicrocodes;
+    MicrocodeInfo *current, *top, *bottom;
 };
 
 extern GBIInfo GBI;
 
-void GBI_MakeCurrent( MicrocodeInfo *current );
-MicrocodeInfo *GBI_DetectMicrocode( u32 uc_start, u32 uc_dstart, u16 uc_dsize );
+void GBI_MakeCurrent(MicrocodeInfo* current);
+MicrocodeInfo* GBI_DetectMicrocode(u32 uc_start, u32 uc_dstart, u16 uc_dsize);
 void GBI_Init();
 void GBI_Destroy();
 

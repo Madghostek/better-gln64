@@ -2925,7 +2925,6 @@ typedef void (APIENTRY * PFNGLTEXTURECOLORMASKSGISPROC) (GLboolean red, GLboolea
 #endif
 
 
-
 /* added by Cass -- this part will be auto-generated in the future*/
 
 #ifndef GL_EXT_texture_compression_s3tc
@@ -3297,4 +3296,3 @@ typedef void (APIENTRY * PFNGLGETCOMBINERSTAGEPARAMETERFVNVPROC) (GLenum stage, 
 #endif
 
 #endif
-

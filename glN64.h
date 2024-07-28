@@ -5,14 +5,14 @@
 //#include <commctrl.h>
 //#define DEBUG
 #define RSPTHREAD
-extern HWND			hWnd;
+extern HWND hWnd;
 //extern HWND			hFullscreen;
-extern HWND			hStatusBar;
-extern HWND			hToolBar;
-extern HINSTANCE	hInstance;
+extern HWND hStatusBar;
+extern HWND hToolBar;
+extern HINSTANCE hInstance;
 
-extern void (*CheckInterrupts)( void );
-extern char *screenDirectory;
+extern void (*CheckInterrupts)(void);
+extern char* screenDirectory;
 
 #ifdef _DEBUG
 #define DEBUG_SUFFIX " (Debug)"

@@ -19,19 +19,20 @@
 
 struct DebugInfo
 {
-	WORD show, level;
-	BOOL detail, paused, step;
-	struct
-	{
-		DWORD pci, pc, cmd, w0, w1;
-	} rsp;
+    WORD show, level;
+    BOOL detail, paused, step;
+
+    struct
+    {
+        DWORD pci, pc, cmd, w0, w1;
+    } rsp;
 };
 
 extern DebugInfo Debug;
 
 void OpenDebugDlg();
 void CloseDebugDlg();
-void DebugRSPState( DWORD pci, DWORD pc, DWORD cmd, DWORD w0, DWORD w1 );
-void DebugMsg( WORD type, LPCSTR format, ... );
-void StartDump( char *filename );
+void DebugRSPState(DWORD pci, DWORD pc, DWORD cmd, DWORD w0, DWORD w1);
+void DebugMsg(WORD type, LPCSTR format, ...);
+void StartDump(char* filename);
 void EndDump();

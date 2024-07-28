@@ -50,7 +50,7 @@
 #define G_ACMUX_0		7
 
 #define EncodeCombineMode( a0, b0, c0, d0, Aa0, Ab0, Ac0, Ad0,	\
-		a1, b1, c1, d1,	Aa1, Ab1, Ac1, Ad1 ) \
+    a1, b1, c1, d1,	Aa1, Ab1, Ac1, Ad1 ) \
 		(u64)(((u64)(_SHIFTL( G_CCMUX_##a0, 20, 4 ) | _SHIFTL( G_CCMUX_##c0, 15, 5 ) | \
 		_SHIFTL( G_ACMUX_##Aa0, 12, 3 ) | _SHIFTL( G_ACMUX_##Ac0, 9, 3 ) | \
 		_SHIFTL( G_CCMUX_##a1, 5, 4 ) | _SHIFTL( G_CCMUX_##c1, 0, 5 )) << 32) | \
@@ -150,147 +150,147 @@
 
 struct CombinerOp
 {
-	int op;
-	int param1;
-	int param2;
-	int param3;
+    int op;
+    int param1;
+    int param2;
+    int param3;
 };
 
 struct CombinerStage
 {
-	int numOps;
-	CombinerOp op[6];
+    int numOps;
+    CombinerOp op[6];
 };
 
 struct Combiner
 {
-	int numStages;
-	CombinerStage stage[2];
+    int numStages;
+    CombinerStage stage[2];
 };
 
 struct CombineCycle
 {
-	int sa, sb, m, a;
+    int sa, sb, m, a;
 };
 
-static int saRGBExpanded[] = 
+static int saRGBExpanded[] =
 {
-	COMBINED,			TEXEL0,				TEXEL1,				PRIMITIVE,		
-	SHADE,				ENVIRONMENT,		ONE,				NOISE,
-	ZERO,				ZERO,				ZERO,				ZERO,
-	ZERO,				ZERO,				ZERO,				ZERO
+    COMBINED, TEXEL0, TEXEL1, PRIMITIVE,
+    SHADE, ENVIRONMENT, ONE, NOISE,
+    ZERO, ZERO, ZERO, ZERO,
+    ZERO, ZERO, ZERO, ZERO
 };
 
-static int sbRGBExpanded[] = 
+static int sbRGBExpanded[] =
 {
-	COMBINED,			TEXEL0,				TEXEL1,				PRIMITIVE,		
-	SHADE,				ENVIRONMENT,		CENTER,				K4,
-	ZERO,				ZERO,				ZERO,				ZERO,
-	ZERO,				ZERO,				ZERO,				ZERO
+    COMBINED, TEXEL0, TEXEL1, PRIMITIVE,
+    SHADE, ENVIRONMENT, CENTER, K4,
+    ZERO, ZERO, ZERO, ZERO,
+    ZERO, ZERO, ZERO, ZERO
 };
 
-static int mRGBExpanded[] = 
+static int mRGBExpanded[] =
 {
-	COMBINED,			TEXEL0,				TEXEL1,				PRIMITIVE,		
-	SHADE,				ENVIRONMENT,		SCALE,				COMBINED_ALPHA,
-	TEXEL0_ALPHA,		TEXEL1_ALPHA,		PRIMITIVE_ALPHA,	SHADE_ALPHA,
-	ENV_ALPHA,			LOD_FRACTION,		PRIM_LOD_FRAC,		K5,
-	ZERO,				ZERO,				ZERO,				ZERO,
-	ZERO,				ZERO,				ZERO,				ZERO,
-	ZERO,				ZERO,				ZERO,				ZERO,
-	ZERO,				ZERO,				ZERO,				ZERO
+    COMBINED, TEXEL0, TEXEL1, PRIMITIVE,
+    SHADE, ENVIRONMENT, SCALE, COMBINED_ALPHA,
+    TEXEL0_ALPHA, TEXEL1_ALPHA, PRIMITIVE_ALPHA, SHADE_ALPHA,
+    ENV_ALPHA, LOD_FRACTION, PRIM_LOD_FRAC, K5,
+    ZERO, ZERO, ZERO, ZERO,
+    ZERO, ZERO, ZERO, ZERO,
+    ZERO, ZERO, ZERO, ZERO,
+    ZERO, ZERO, ZERO, ZERO
 };
 
-static int aRGBExpanded[] = 
+static int aRGBExpanded[] =
 {
-	COMBINED,			TEXEL0,				TEXEL1,				PRIMITIVE,		
-	SHADE,				ENVIRONMENT,		ONE,				ZERO
+    COMBINED, TEXEL0, TEXEL1, PRIMITIVE,
+    SHADE, ENVIRONMENT, ONE, ZERO
 };
 
-static int saAExpanded[] = 
+static int saAExpanded[] =
 {
-	COMBINED,			TEXEL0_ALPHA,		TEXEL1_ALPHA,		PRIMITIVE_ALPHA,		
-	SHADE_ALPHA,		ENV_ALPHA,			ONE,				ZERO
+    COMBINED, TEXEL0_ALPHA, TEXEL1_ALPHA, PRIMITIVE_ALPHA,
+    SHADE_ALPHA, ENV_ALPHA, ONE, ZERO
 };
 
-static int sbAExpanded[] = 
+static int sbAExpanded[] =
 {
-	COMBINED,			TEXEL0_ALPHA,		TEXEL1_ALPHA,		PRIMITIVE_ALPHA,		
-	SHADE_ALPHA,		ENV_ALPHA,			ONE,				ZERO
+    COMBINED, TEXEL0_ALPHA, TEXEL1_ALPHA, PRIMITIVE_ALPHA,
+    SHADE_ALPHA, ENV_ALPHA, ONE, ZERO
 };
 
-static int mAExpanded[] = 
+static int mAExpanded[] =
 {
-	LOD_FRACTION,		TEXEL0_ALPHA,		TEXEL1_ALPHA,		PRIMITIVE_ALPHA,		
-	SHADE_ALPHA,		ENV_ALPHA,			PRIM_LOD_FRAC,		ZERO,
+    LOD_FRACTION, TEXEL0_ALPHA, TEXEL1_ALPHA, PRIMITIVE_ALPHA,
+    SHADE_ALPHA, ENV_ALPHA, PRIM_LOD_FRAC, ZERO,
 };
 
-static int aAExpanded[] = 
+static int aAExpanded[] =
 {
-	COMBINED,			TEXEL0_ALPHA,		TEXEL1_ALPHA,		PRIMITIVE_ALPHA,		
-	SHADE_ALPHA,		ENV_ALPHA,			ONE,				ZERO
+    COMBINED, TEXEL0_ALPHA, TEXEL1_ALPHA, PRIMITIVE_ALPHA,
+    SHADE_ALPHA, ENV_ALPHA, ONE, ZERO
 };
 
 static int CCEncodeA[] =
 {
-	0, 1, 2, 3, 4, 5, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 7, 15, 15, 6, 15
+    0, 1, 2, 3, 4, 5, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 7, 15, 15, 6, 15
 };
 
 static int CCEncodeB[] =
 {
-	0, 1, 2, 3, 4, 5, 6, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 7, 15, 15, 15
+    0, 1, 2, 3, 4, 5, 6, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 7, 15, 15, 15
 };
 
 static int CCEncodeC[] =
 {
-	0, 1, 2, 3, 4, 5, 31, 6, 7, 8, 9, 10, 11, 12, 13, 14, 31, 31, 15, 31, 31
+    0, 1, 2, 3, 4, 5, 31, 6, 7, 8, 9, 10, 11, 12, 13, 14, 31, 31, 15, 31, 31
 };
 
 static int CCEncodeD[] =
 {
-	0, 1, 2, 3, 4, 5, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 6, 15
+    0, 1, 2, 3, 4, 5, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 6, 15
 };
 
 static DWORD64 ACEncodeA[] =
 {
-	7, 7, 7, 7, 7, 7, 7, 7, 0, 1, 2, 3, 4, 5, 7, 7, 7, 7, 7, 6, 7
+    7, 7, 7, 7, 7, 7, 7, 7, 0, 1, 2, 3, 4, 5, 7, 7, 7, 7, 7, 6, 7
 };
 
 static DWORD64 ACEncodeB[] =
 {
-	7, 7, 7, 7, 7, 7, 7, 7, 0, 1, 2, 3, 4, 5, 7, 7, 7, 7, 7, 6, 7
+    7, 7, 7, 7, 7, 7, 7, 7, 0, 1, 2, 3, 4, 5, 7, 7, 7, 7, 7, 6, 7
 };
 
 static DWORD64 ACEncodeC[] =
 {
-	7, 7, 7, 7, 7, 7, 7, 7, 0, 1, 2, 3, 4, 5, 7, 6, 7, 7, 7, 7, 7
+    7, 7, 7, 7, 7, 7, 7, 7, 0, 1, 2, 3, 4, 5, 7, 6, 7, 7, 7, 7, 7
 };
 
 static DWORD64 ACEncodeD[] =
 {
-	7, 7, 7, 7, 7, 7, 7, 7, 0, 1, 2, 3, 4, 5, 7, 7, 7, 7, 7, 6, 7
+    7, 7, 7, 7, 7, 7, 7, 7, 0, 1, 2, 3, 4, 5, 7, 7, 7, 7, 7, 6, 7
 };
 
 struct CachedCombiner
 {
-	gDPCombine combine;
+    gDPCombine combine;
 
-	void *compiled;
-	CachedCombiner *left, *right;
+    void* compiled;
+    CachedCombiner *left, *right;
 };
 
 extern struct CombinerInfo
 {
-	struct
-	{
-		WORD color, secondaryColor, alpha;
-	} vertex;
+    struct
+    {
+        WORD color, secondaryColor, alpha;
+    } vertex;
 
-	CachedCombiner *root, *current;
+    CachedCombiner *root, *current;
 
-	int compiler;
+    int compiler;
 
-	BOOL usesT0, usesT1, usesNoise;
+    BOOL usesT0, usesT1, usesNoise;
 } combiner;
 
 #define SetConstant( constant, color, alpha ) \
@@ -350,13 +350,13 @@ extern struct CombinerInfo
 		case ZERO: \
 			constant.a = 0.0f; \
 			break; \
-	} 
+	}
 
 void Combiner_Init();
 void Combiner_UpdateCombineColors();
 void Combiner_UpdateCombineMode();
-void Combiner_SetCombine( u64 mux );
-void Combiner_SelectCombine( u64 mux );
+void Combiner_SetCombine(u64 mux);
+void Combiner_SelectCombine(u64 mux);
 void Combiner_SetCombineStates();
 void Combiner_Destroy();
 void Combiner_BeginTextureUpdate();

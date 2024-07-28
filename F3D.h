@@ -66,31 +66,31 @@
 #define F3D_RDPHALF_CONT		0xB2
 #define F3D_TRI4				0xB1
 
-void F3D_SPNoOp( u32 w0, u32 w1 );
-void F3D_Mtx( u32 w0, u32 w1 );
-void F3D_Reserved0( u32 w0, u32 w1 );
-void F3D_MoveMem( u32 w0, u32 w1 );
-void F3D_Vtx( u32 w0, u32 w1 );
-void F3D_Reserved1( u32 w0, u32 w1 );
-void F3D_DList( u32 w0, u32 w1 );
-void F3D_Reserved2( u32 w0, u32 w1 );
-void F3D_Reserved3( u32 w0, u32 w1 );
-void F3D_Sprite2D_Base( u32 w0, u32 w1 );
-void F3D_Tri1( u32 w0, u32 w1 );
-void F3D_CullDL( u32 w0, u32 w1 );
-void F3D_PopMtx( u32 w0, u32 w1 );
-void F3D_MoveWord( u32 w0, u32 w1 );
-void F3D_Texture( u32 w0, u32 w1 );
-void F3D_SetOtherMode_H( u32 w0, u32 w1 );
-void F3D_SetOtherMode_L( u32 w0, u32 w1 );
-void F3D_EndDL( u32 w0, u32 w1 );
-void F3D_SetGeometryMode( u32 w0, u32 w1 );
-void F3D_ClearGeometryMode( u32 w0, u32 w1 );
+void F3D_SPNoOp(u32 w0, u32 w1);
+void F3D_Mtx(u32 w0, u32 w1);
+void F3D_Reserved0(u32 w0, u32 w1);
+void F3D_MoveMem(u32 w0, u32 w1);
+void F3D_Vtx(u32 w0, u32 w1);
+void F3D_Reserved1(u32 w0, u32 w1);
+void F3D_DList(u32 w0, u32 w1);
+void F3D_Reserved2(u32 w0, u32 w1);
+void F3D_Reserved3(u32 w0, u32 w1);
+void F3D_Sprite2D_Base(u32 w0, u32 w1);
+void F3D_Tri1(u32 w0, u32 w1);
+void F3D_CullDL(u32 w0, u32 w1);
+void F3D_PopMtx(u32 w0, u32 w1);
+void F3D_MoveWord(u32 w0, u32 w1);
+void F3D_Texture(u32 w0, u32 w1);
+void F3D_SetOtherMode_H(u32 w0, u32 w1);
+void F3D_SetOtherMode_L(u32 w0, u32 w1);
+void F3D_EndDL(u32 w0, u32 w1);
+void F3D_SetGeometryMode(u32 w0, u32 w1);
+void F3D_ClearGeometryMode(u32 w0, u32 w1);
 //void F3D_Line3D( u32 w0, u32 w1 );
-void F3D_Quad( u32 w0, u32 w1 );
-void F3D_RDPHalf_1( u32 w0, u32 w1 );
-void F3D_RDPHalf_2( u32 w0, u32 w1 );
-void F3D_RDPHalf_Cont( u32 w0, u32 w1 );
-void F3D_Tri4( u32 w0, u32 w1 );
+void F3D_Quad(u32 w0, u32 w1);
+void F3D_RDPHalf_1(u32 w0, u32 w1);
+void F3D_RDPHalf_2(u32 w0, u32 w1);
+void F3D_RDPHalf_Cont(u32 w0, u32 w1);
+void F3D_Tri4(u32 w0, u32 w1);
 void F3D_Init();
 #endif

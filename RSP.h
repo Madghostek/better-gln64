@@ -15,18 +15,17 @@
 #define RSPMSG_INITTEXTURES 	5
 #define RSPMSG_READPIXELS		6
 
-typedef struct
+using RSPInfo = struct
 {
-	HANDLE thread;
+    HANDLE thread;
 
-	u32 PC[18], PCi, busy, halt, close, DList, uc_start, uc_dstart, cmd, nextCmd, count;
+    u32 PC[18], PCi, busy, halt, close, DList, uc_start, uc_dstart, cmd, nextCmd, count;
 
-	// Events for thread messages, see defines at the top, or RSP_Thread
-	HANDLE			threadMsg[7];
-	// Event to notify main process that the RSP is finished with what it was doing
-	HANDLE			threadFinished;
-
-} RSPInfo;
+    // Events for thread messages, see defines at the top, or RSP_Thread
+    HANDLE threadMsg[7];
+    // Event to notify main process that the RSP is finished with what it was doing
+    HANDLE threadFinished;
+};
 
 extern RSPInfo RSP;
 
@@ -34,7 +33,7 @@ extern RSPInfo RSP;
 
 void RSP_Init();
 void RSP_ProcessDList();
-DWORD WINAPI RSP_ThreadProc( LPVOID lpParameter );
-void RSP_LoadMatrix( f32 mtx[4][4], u32 address );
+DWORD WINAPI RSP_ThreadProc(LPVOID lpParameter);
+void RSP_LoadMatrix(f32 mtx[4][4], u32 address);
 
 #endif
