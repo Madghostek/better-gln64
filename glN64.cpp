@@ -144,7 +144,7 @@ EXPORT void CALL DllAbout ( HWND hParent )
 
 EXPORT void CALL DllConfig ( HWND hParent )
 {
-	Config_DoConfig();
+	Config_Show(hParent);
 }
 
 EXPORT void CALL DllTest ( HWND hParent )
