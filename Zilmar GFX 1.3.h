@@ -278,9 +278,9 @@ EXPORT void CALL mge_get_video_size(long* width, long* height);
 
 /******************************************************************
   Function: mge_read_video
-  Purpose:  This function copies the framebuffer into the specified buffer.
-  input:    buffer - The buffer to copy the framebuffer into. 
-            The buffer is of the dimensions mge_get_video_size and bit depth of 24.
+  Purpose:  This function returns a pointer to a buffer containing the framebuffer data.
+  input:    buffer - The buffer containing the framebuffer data. 
+            The framebuffer is of the dimensions mge_get_video_size and bit depth of 24.
   output:   none
 *******************************************************************/
 EXPORT void CALL mge_read_video(void** buffer);
