@@ -267,7 +267,22 @@ EXPORT void CALL ViWidthChanged(void);
 
 EXPORT void CALL ReadScreen2(void** dest, long* width, long* height);
 
+/******************************************************************
+  Function: mge_get_video_size
+  Purpose:  This function retrieves the current video size.
+  input:    width - Pointer to video width.
+            height - Pointer to video width.
+  output:   none
+*******************************************************************/
 EXPORT void CALL mge_get_video_size(long* width, long* height);
+
+/******************************************************************
+  Function: mge_read_video
+  Purpose:  This function copies the framebuffer into the specified buffer.
+  input:    buffer - The buffer to copy the framebuffer into. 
+            The buffer is of the dimensions mge_get_video_size and bit depth of 24.
+  output:   none
+*******************************************************************/
 EXPORT void CALL mge_read_video(void** buffer);
 
 EXPORT void CALL DllCrtFree(void* block)
