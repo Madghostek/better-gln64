@@ -631,7 +631,7 @@ void OGL_DrawRect(int ulx, int uly, int lrx, int lry, float* color)
     glDepthRange(0.0f, 1.0f);
 
     glColor4f(color[0], color[1], color[2], color[3]);
-    printf("[gln] draw rect %d %d %d %d (z: %d)\n", ulx, uly, lrx, lry, (gDP.otherMode.depthSource == G_ZS_PRIM) ? gDP.primDepth.z : 0.0f);
+
     glBegin(GL_TRIANGLES);
     glVertex4f(ulx, uly, (gDP.otherMode.depthSource == G_ZS_PRIM) ? gDP.primDepth.z : 0.0f, 1.0f);
     glVertex4f(lrx, uly, (gDP.otherMode.depthSource == G_ZS_PRIM) ? gDP.primDepth.z : 0.0f, 1.0f);

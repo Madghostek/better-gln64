@@ -135,7 +135,6 @@ void RSP_ProcessDList()
 
     if (OGL.clear_override)
     {
-        printf("[gln] clearing\n");
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
     }
