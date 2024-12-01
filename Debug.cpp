@@ -20,7 +20,7 @@ CHARFORMAT handledFormat =
     RGB(0, 0, 0),
     NULL,
     NULL,
-    (TCHAR*)"Courier New"
+    "Courier New"
 };
 
 CHARFORMAT unknownFormat =
@@ -33,7 +33,7 @@ CHARFORMAT unknownFormat =
     RGB(128, 128, 0),
     NULL,
     NULL,
-    (TCHAR*)"Courier New"
+    "Courier New"
 };
 
 CHARFORMAT errorFormat =
@@ -46,7 +46,7 @@ CHARFORMAT errorFormat =
     RGB(128, 0, 0),
     NULL,
     NULL,
-    (TCHAR*)"Courier New"
+    "Courier New"
 };
 
 CHARFORMAT detailFormat =
@@ -59,7 +59,7 @@ CHARFORMAT detailFormat =
     RGB(0, 128, 0),
     NULL,
     NULL,
-    (TCHAR*)"Courier New"
+    "Courier New"
 };
 
 HWND hDebugDlg;
@@ -67,7 +67,7 @@ BOOL DumpMessages;
 FILE* dumpFile;
 char dumpFilename[256];
 
-BOOL CALLBACK DebugDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK DebugDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
     {
