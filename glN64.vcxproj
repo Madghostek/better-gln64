@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <ItemGroup Label="ProjectConfigurations">
-        <ProjectConfiguration Include="Debug 1964|Win32">
-            <Configuration>Debug 1964</Configuration>
-            <Platform>Win32</Platform>
-        </ProjectConfiguration>
         <ProjectConfiguration Include="Debug|Win32">
             <Configuration>Debug</Configuration>
             <Platform>Win32</Platform>
@@ -20,11 +16,6 @@
         <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     </PropertyGroup>
     <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug 1964|Win32'" Label="Configuration">
-        <ConfigurationType>DynamicLibrary</ConfigurationType>
-        <PlatformToolset>v143</PlatformToolset>
-        <CharacterSet>MultiByte</CharacterSet>
-    </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
         <ConfigurationType>DynamicLibrary</ConfigurationType>
         <PlatformToolset>v143</PlatformToolset>
@@ -37,9 +28,6 @@
     </PropertyGroup>
     <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
     <ImportGroup Label="ExtensionSettings">
-    </ImportGroup>
-    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug 1964|Win32'" Label="PropertySheets">
-        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
     </ImportGroup>
     <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
         <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
@@ -61,11 +49,6 @@
         <OutDir>Release\</OutDir>
         <IntDir>Release\</IntDir>
         <LinkIncremental>false</LinkIncremental>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug 1964|Win32'">
-        <OutDir>Debug 1964\</OutDir>
-        <IntDir>Debug 1964\</IntDir>
-        <LinkIncremental>true</LinkIncremental>
     </PropertyGroup>
     <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
         <ClCompile>
@@ -116,29 +99,6 @@
             <TargetMachine>MachineX86</TargetMachine>
             <AdditionalLibraryDirectories>$(ProjectDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
             <AdditionalDependencies>opengl32.lib;glu32.lib;winmm.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
-        </Link>
-    </ItemDefinitionGroup>
-    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug 1964|Win32'">
-        <ClCompile>
-            <Optimization>Disabled</Optimization>
-            <PreprocessorDefinitions>WIN32;GLEW_STATICGLEW_BUILD</PreprocessorDefinitions>
-            <MinimalRebuild>true</MinimalRebuild>
-            <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-            <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-            <PrecompiledHeader/>
-            <WarningLevel>Level3</WarningLevel>
-            <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-            <AdditionalIncludeDirectories>$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-        </ClCompile>
-        <Link>
-            <AdditionalDependencies>opengl32.lib;glu32.lib;winmm.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
-            <OutputFile>c:\game files\emulators\nintendo 64\plugin\glN64.dll</OutputFile>
-            <GenerateDebugInformation>true</GenerateDebugInformation>
-            <ProgramDatabaseFile>$(OutDir)New glNintendo64().pdb</ProgramDatabaseFile>
-            <SubSystem>Windows</SubSystem>
-            <ImportLibrary>$(OutDir)New glNintendo64().lib</ImportLibrary>
-            <TargetMachine>MachineX86</TargetMachine>
-            <AdditionalLibraryDirectories>$(ProjectDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
         </Link>
     </ItemDefinitionGroup>
     <ItemGroup>
