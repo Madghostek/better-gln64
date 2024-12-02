@@ -176,8 +176,8 @@ BOOL CALLBACK FindToolBarProc(HWND hWnd, LPARAM lParam)
 
 EXPORT BOOL CALL InitiateGFX(GFX_INFO Gfx_Info)
 {
-    hWnd = Gfx_Info.hWnd;
-    hStatusBar = Gfx_Info.hStatusBar;
+    hWnd = (HWND)Gfx_Info.hWnd;
+    hStatusBar = (HWND)Gfx_Info.hStatusBar;
     hToolBar = NULL;
 
     EnumChildWindows(hWnd, FindToolBarProc, 0);
