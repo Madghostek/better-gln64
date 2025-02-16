@@ -850,11 +850,8 @@ void OGL_SaveScreenshot()
     BITMAPINFOHEADER infoHeader;
     HANDLE hBitmapFile;
 
-    auto pixelData = (char*)malloc(OGL.width * OGL.height * 3);
-
-    glReadBuffer(GL_FRONT);
-    glReadPixels(0, OGL.heightOffset, OGL.width, OGL.height, GL_BGR_EXT, GL_UNSIGNED_BYTE, pixelData);
-    glReadBuffer(GL_BACK);
+    gCapturedPixels = malloc(OGL.width * OGL.height * 3);
+    OGL_ReadPixels();
 
     infoHeader.biSize = sizeof(BITMAPINFOHEADER);
     infoHeader.biWidth = OGL.width;
@@ -894,8 +891,8 @@ void OGL_SaveScreenshot()
 
     WriteFile(hBitmapFile, &fileHeader, sizeof(BITMAPFILEHEADER), &written, NULL);
     WriteFile(hBitmapFile, &infoHeader, sizeof(BITMAPINFOHEADER), &written, NULL);
-    WriteFile(hBitmapFile, pixelData, infoHeader.biSizeImage, &written, NULL);
+    WriteFile(hBitmapFile, gCapturedPixels, infoHeader.biSizeImage, &written, NULL);
 
     CloseHandle(hBitmapFile);
-    free(pixelData);
+    free(gCapturedPixels);
 }
