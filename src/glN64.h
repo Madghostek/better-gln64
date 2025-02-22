@@ -11,12 +11,20 @@ extern HINSTANCE hInstance;
 extern void (*CheckInterrupts)(void);
 extern char* screenDirectory;
 
-#ifdef _DEBUG
-#define DEBUG_SUFFIX " (Debug)"
+#define PLUGIN_VERSION "1.3"
+
+#ifdef _M_X64
+#define PLUGIN_ARCH "-x64"
 #else
-#define DEBUG_SUFFIX ""
+#define PLUGIN_ARCH "-x86"
 #endif
 
-#define PLUGIN_NAME "better glN64 v1.3" DEBUG_SUFFIX
+#ifdef _DEBUG
+#define PLUGIN_TARGET "-debug"
+#else
+#define PLUGIN_TARGET "-release"
+#endif
+
+#define PLUGIN_NAME "better-gln64 " PLUGIN_VERSION PLUGIN_ARCH PLUGIN_TARGET
 
 #endif
