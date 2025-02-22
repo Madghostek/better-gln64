@@ -1,5 +1,5 @@
+#include "stdafx.h"
 #include "glN64.h"
-#include "Types.h"
 #include "VI.h"
 #include "OpenGL.h"
 #include "N64.h"

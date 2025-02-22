@@ -1,7 +1,6 @@
 #ifndef GDP_H
 #define GDP_H
 
-#include "Types.h"
 #include "FrameBuffer.h"
 
 #define CHANGED_RENDERMODE		0x001

@@ -1,4 +1,4 @@
-#include <windows.h>
+#include "stdafx.h"
 #include "OpenGL.h"
 #include "FrameBuffer.h"
 #include "RSP.h"

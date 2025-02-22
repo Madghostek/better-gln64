@@ -1,8 +1,4 @@
-#include <windows.h>
-#include <commctrl.h>
-#include <glew.h>
-//#include <gl/gl.h>
-//#include <gl/glu.h>
+#include "stdafx.h"
 #include <process.h>
 #include "glN64.h"
 #include "Debug.h"
@@ -41,10 +37,6 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD dwReason, LPVOID lpvReserved)
         RSP.thread = NULL;
         OGL.hRC = NULL;
         OGL.hDC = NULL;
-        /*		OGL.hPbufferRC = NULL;
-                OGL.hPbufferDC = NULL;
-                OGL.hPbuffer = NULL;*/
-        //		hFullscreen = NULL;
     }
     return TRUE;
 }

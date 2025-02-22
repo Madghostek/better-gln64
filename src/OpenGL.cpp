@@ -1,8 +1,4 @@
-#include <windows.h>
-#include <math.h>
-#include <glew.h>
-//#include <gl/gl.h>
-#include <stdio.h>
+#include "stdafx.h"
 #include "glN64.h"
 #include "OpenGL.h"
 #include "Types.h"

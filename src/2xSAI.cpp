@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Types.h"
 #include "GBI.h"
 

@@ -4,7 +4,6 @@
 #include "glN64.h"
 #include "OpenGL.h"
 #include "gDP.h"
-#include "Types.h"
 
 #define TEXTURE_ENV					1
 #define TEXTURE_ENV_COMBINE			2

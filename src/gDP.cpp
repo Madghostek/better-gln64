@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "glN64.h"
 #include "N64.h"
 #include "GBI.h"

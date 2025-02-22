@@ -1,13 +1,10 @@
-#include <windows.h>
-#include <windowsx.h>
-#include <stdio.h>
+#include "stdafx.h"
 #include "Config.h"
 #include "glN64.h"
 #include "Resource.h"
 #include "RSP.h"
 #include "Textures.h"
 #include "OpenGL.h"
-#include <commctrl.h>
 
 HWND hConfigDlg;
 

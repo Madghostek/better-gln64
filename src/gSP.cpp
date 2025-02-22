@@ -1,4 +1,4 @@
-#include <math.h>
+#include "stdafx.h"
 #include "glN64.h"
 #include "Debug.h"
 #include "Types.h"

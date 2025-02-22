@@ -1,6 +1,4 @@
-#include <windows.h>
-#include <stdio.h>
-#include <process.h>
+#include "stdafx.h"
 #include "glN64.h"
 #include "Debug.h"
 #include "resource.h"

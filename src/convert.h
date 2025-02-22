@@ -1,8 +1,6 @@
 #ifndef CONVERT_H
 #define CONVERT_H
 
-#include "Types.h"
-
 const unsigned char Five2Eight[32] =
 {
     0, // 00000 = 00000000

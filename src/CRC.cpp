@@ -1,4 +1,4 @@
-#include <windows.h>
+#include "stdafx.h"
 
 #define CRC32_POLYNOMIAL     0x04C11DB7
 

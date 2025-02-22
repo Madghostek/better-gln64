@@ -1,4 +1,4 @@
-#include <malloc.h>
+#include "stdafx.h"
 #include "DepthBuffer.h"
 #include "Types.h"
 

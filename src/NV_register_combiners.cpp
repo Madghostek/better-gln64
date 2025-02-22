@@ -1,4 +1,4 @@
-#include <windows.h>
+#include "stdafx.h"
 #include "OpenGL.h"
 #include "Combiner.h"
 #include "NV_register_combiners.h"

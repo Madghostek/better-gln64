@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "N64.h"
 #include "RSP.h"
 #include "GBI.h"

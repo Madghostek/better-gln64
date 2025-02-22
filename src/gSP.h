@@ -1,7 +1,6 @@
 #ifndef GSP_H
 #define GSP_H
 
-#include "Types.h"
 #include "GBI.h"
 #include "gDP.h"
 

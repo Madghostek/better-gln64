@@ -1,5 +1,4 @@
-#include <windows.h>
-#include <memory.h>
+#include "stdafx.h"
 #include "OpenGL.h"
 #include "Textures.h"
 #include "GBI.h"

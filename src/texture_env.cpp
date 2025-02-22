@@ -1,4 +1,4 @@
-#include <windows.h>
+#include "stdafx.h"
 #include "OpenGL.h"
 #include "Combiner.h"
 #include "texture_env.h"

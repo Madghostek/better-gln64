@@ -1,5 +1,4 @@
-#include <windows.h>
-#include <math.h>
+#include "stdafx.h"
 #include "glN64.h"
 #include "OpenGL.h"
 #include "Debug.h"
@@ -10,8 +9,6 @@
 #include "3DMath.h"
 #include "VI.h"
 #include "Combiner.h"
-//#include "textures.h"
-//#include "Config.h"
 #include "FrameBuffer.h"
 #include "DepthBuffer.h"
 #include "GBI.h"

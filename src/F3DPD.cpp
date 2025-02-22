@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "glN64.h"
 #include "Debug.h"
 #include "F3D.h"

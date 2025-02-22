@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "OpenGL.h"
 #include "S2DEX.h"
 #include "S2DEX2.h"

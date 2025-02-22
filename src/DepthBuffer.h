@@ -1,8 +1,6 @@
 #ifndef DEPTHBUFFER_H
 #define DEPTHBUFFER_H
 
-#include "Types.h"
-
 struct DepthBuffer
 {
     DepthBuffer *higher, *lower;

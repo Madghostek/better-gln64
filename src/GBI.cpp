@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include "stdafx.h"
 #include "glN64.h"
 #include "GBI.h"
 #include "RDP.h"
