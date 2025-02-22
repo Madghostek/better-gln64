@@ -150,7 +150,7 @@
             <PrecompiledHeader />
             <WarningLevel>Level3</WarningLevel>
             <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-            <AdditionalIncludeDirectories>lib\glew-x64;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+            <AdditionalIncludeDirectories>lib\glew;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
         </ClCompile>
         <Link>
             <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -173,7 +173,7 @@
             <FunctionLevelLinking>true</FunctionLevelLinking>
             <WarningLevel>Level3</WarningLevel>
             <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-            <AdditionalIncludeDirectories>lib\glew-x64;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+            <AdditionalIncludeDirectories>lib\glew;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
         </ClCompile>
         <Link>
             <GenerateDebugInformation>true</GenerateDebugInformation>
