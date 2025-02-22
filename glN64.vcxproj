@@ -101,10 +101,8 @@
         <ClCompile>
             <Optimization>Disabled</Optimization>
             <PreprocessorDefinitions>WIN32;GLEW_STATIC</PreprocessorDefinitions>
-            <MinimalRebuild>true</MinimalRebuild>
             <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
             <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-            <PrecompiledHeader />
             <WarningLevel>Level3</WarningLevel>
             <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
             <AdditionalIncludeDirectories>lib\glew;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -144,10 +142,8 @@
         <ClCompile>
             <Optimization>Disabled</Optimization>
             <PreprocessorDefinitions>WIN32;GLEW_STATIC</PreprocessorDefinitions>
-            <MinimalRebuild>true</MinimalRebuild>
             <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
             <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-            <PrecompiledHeader />
             <WarningLevel>Level3</WarningLevel>
             <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
             <AdditionalIncludeDirectories>lib\glew;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
