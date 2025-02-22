@@ -1,3 +1,11 @@
-# better gln64
+<p align="center">
+  <img width="128" align="center" src="https://github.com/user-attachments/assets/f62f241f-edf6-4861-8911-bbe2d7c88164">
+</p>
 
-Fork of gln64 that cooperates with mupen during screen capture (which now probably makes no difference, maybe is a bit faster), allows arbitrarily big windowed resolution, so you can upload dem freeruns at 4k (everybody uses direct64 anyway) and implements xbrz filter.
+<h1 align="center">
+  better-gln64
+</h1>
+
+<p align="center">
+  Lightweight Mupen64 video plugin with MGE support.
+</p>
