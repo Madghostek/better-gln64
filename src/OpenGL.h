@@ -2,8 +2,7 @@
 #define OPENGL_H
 
 #include <windows.h>
-#include <GL/glew.h>
-//#include <gl/gl.h>
+#include <glew.h>
 #include "glext.h"
 #include "wglext.h"
 #include "glATI.h"

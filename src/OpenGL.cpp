@@ -1,6 +1,6 @@
 #include <windows.h>
 #include <math.h>
-#include <GL/glew.h>
+#include <glew.h>
 //#include <gl/gl.h>
 #include <stdio.h>
 #include "glN64.h"

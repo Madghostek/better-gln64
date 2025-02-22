@@ -1,6 +1,6 @@
 #ifndef TEXTURES_H
 #define TEXTURES_H
-#include <GL/glew.h>
+#include <glew.h>
 //#include <gl/gl.h>
 #include "convert.h"
 

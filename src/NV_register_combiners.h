@@ -1,5 +1,5 @@
 //#include <gl/gl.h>
-#include <GL/glew.h>
+#include <glew.h>
 
 struct CombinerInput
 {
