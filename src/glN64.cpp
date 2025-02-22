@@ -6,7 +6,7 @@
 #include <process.h>
 #include "glN64.h"
 #include "Debug.h"
-#include "Zilmar GFX 1.3.h"
+#include <Zilmar GFX 1.3.h>
 #include "OpenGL.h"
 #include "N64.h"
 #include "RSP.h"

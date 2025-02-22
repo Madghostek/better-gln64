@@ -105,12 +105,12 @@
             <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
             <WarningLevel>Level3</WarningLevel>
             <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-            <AdditionalIncludeDirectories>lib\glew;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+            <AdditionalIncludeDirectories>lib\glew;lib\mupen;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
         </ClCompile>
         <Link>
             <GenerateDebugInformation>true</GenerateDebugInformation>
             <SubSystem>Windows</SubSystem>
-            <AdditionalLibraryDirectories>lib\glew;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+            <AdditionalLibraryDirectories>lib\glew;lib\mupen;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
             <AdditionalDependencies>opengl32.lib;glu32.lib;winmm.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
         </Link>
     </ItemDefinitionGroup>
@@ -127,14 +127,14 @@
             <FunctionLevelLinking>true</FunctionLevelLinking>
             <WarningLevel>Level3</WarningLevel>
             <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-            <AdditionalIncludeDirectories>lib\glew;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+            <AdditionalIncludeDirectories>lib\glew;lib\mupen;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
         </ClCompile>
         <Link>
             <GenerateDebugInformation>true</GenerateDebugInformation>
             <SubSystem>Windows</SubSystem>
             <OptimizeReferences>true</OptimizeReferences>
             <EnableCOMDATFolding>true</EnableCOMDATFolding>
-            <AdditionalLibraryDirectories>lib\glew;%(AdditionalIncludeDirectories)</AdditionalLibraryDirectories>
+            <AdditionalLibraryDirectories>lib\glew;lib\mupen;%(AdditionalIncludeDirectories)</AdditionalLibraryDirectories>
             <AdditionalDependencies>opengl32.lib;glu32.lib;winmm.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
         </Link>
     </ItemDefinitionGroup>
@@ -146,7 +146,7 @@
             <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
             <WarningLevel>Level3</WarningLevel>
             <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-            <AdditionalIncludeDirectories>lib\glew;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+            <AdditionalIncludeDirectories>lib\glew;lib\mupen;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
         </ClCompile>
         <Link>
             <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -169,7 +169,7 @@
             <FunctionLevelLinking>true</FunctionLevelLinking>
             <WarningLevel>Level3</WarningLevel>
             <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-            <AdditionalIncludeDirectories>lib\glew;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+            <AdditionalIncludeDirectories>lib\glew;lib\mupen;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
         </ClCompile>
         <Link>
             <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -256,7 +256,6 @@
         <ClInclude Include="src\xBRZ\xbrz.h" />
         <ClInclude Include="src\xBRZ\xbrz_config.h" />
         <ClInclude Include="src\xBRZ\xbrz_tools.h" />
-        <ClInclude Include="src\Zilmar GFX 1.3.h" />
     </ItemGroup>
     <ItemGroup>
         <ResourceCompile Include="src\Resource.rc" />
